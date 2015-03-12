@@ -131,5 +131,6 @@
 		<module>academix-core-service</module>
 		<module>academix-admission-service</module>
 		<module>academix-core-api</module>
+		<module>academix-admission-api</module>
 	</modules>
-</project>
+</project> 
