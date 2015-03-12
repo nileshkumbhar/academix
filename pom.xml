@@ -128,7 +128,6 @@
 	</reporting>
 	<modules>
 		<module>academix-web</module>
-		<module>academix-core</module>
 		<module>academix-core-service</module>
 	</modules>
 </project>
