@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+<Configure class="org.mortbay.jetty.webapp.WebAppContext">
+ 	<New id="fpt_db_corporate" class="org.mortbay.jetty.plus.naming.Resource">
+        <Arg>acx_common_db</Arg>
+        <Arg>
+            <New class="net.sourceforge.jtds.jdbcx.JtdsDataSource">
+                <Set name="DatabaseName">ACX_COMMON</Set>
+                <Set name="ServerName">127.0.0.1</Set>
+                <Set name="PortNumber">1433</Set>
+                <Set name="User">acxuser</Set>
+                <Set name="Password">acx1234</Set>
+            </New>
+        </Arg>
+    </New>
+</Configure>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">	
+  
+  <appender name="console" class="org.apache.log4j.ConsoleAppender">		
+	<param name="Target" value="System.out" />		
+	<layout class="org.apache.log4j.PatternLayout">			
+	<param name="ConversionPattern" value="%-5p: %d{MMM-dd-yyyy HH:mm:ss:SSS} %X{RemoteAddress} %c - %m%n" />		
+	</layout>	
+</appender>	 
+
+	<!-- Added for generating log file  -->
+  <!-- appender name="RollingAppender" class="org.apache.log4j.rolling.RollingFileAppender">
+        <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+    		<param name="fileNamePattern" value="target/logs/costcalculator_%d{yyyyMMdd}.log"/>
+ 		 </rollingPolicy>
+      <layout class="org.apache.log4j.PatternLayout">
+      	<param name="ConversionPattern" value="%d{MMM-dd-yyyy HH:mm:ss:SSS}  %X{RemoteAddress} %-5p %m%n"/>
+      </layout>
+  </appender -->
+
+
+	<logger name="org.springframework.core">		
+		<level value="info" />	
+	</logger>		
+	<logger name="org.springframework.beans">		
+		<level value="info" />
+	</logger>	
+	<logger name="org.hibernate">		
+		<level value="info" />
+	</logger>	
+	
+    <!--sets the default priority log level -->
+    <root>
+    	<priority value="info"></priority>
+     <!--  appender-ref ref="RollingAppender" /-->
+         <appender-ref ref="console" />
+    </root>
+
+</log4j:configuration>
