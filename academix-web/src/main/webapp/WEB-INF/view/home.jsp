@@ -2,482 +2,957 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <meta name="description" content="">
-	    <meta name="author" content="">
-	
-	    <title>Welcome</title>
-		<!-- Bootstrap and jquery-ui-->
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-		 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<link href='resources/css/bootstrap.min.css' rel="stylesheet" media="screen">
-		<link href='resources/css/slider.css' rel="stylesheet" media="screen">
-		<link href='resources/css/bootstrap-switch.css' rel="stylesheet" media="screen">
-		
 
-		<style type="text/css">
-			.redButton{
-				width: 100%; 
-				height: 60px;
-				cursor: pointer;
-			}
-			
-			.hide-block{
-			   display: none;
-			}
-			
-			.modal-dialog-center { /* Edited classname 10/03/2014 */
-			    margin: 0;
-			    position: absolute;
-			    top: 50%;
-			    left: 50%;
-			}
-			
-			.div-status-info {
-				height: 60px; 
-				margin: 0px;
-				padding:7px; 
-				text-align: center; 
-				vertical-align: middle;			
-			}
-			
-			.navbar-blue {
-				background-image: url("resources/images/header_bg.png");
-				background-repeat: repeat;
-			}
-			
-			body {
-			    margin-top: 125px; /* adjust this if the height of the menu bar changes */
-			}
-			
-			.navbar-fixed-top .nav {
-			    padding: 15px 0;
-			}
-			
-			.navbar-fixed-top .navbar-brand {
-				padding: 0 15px;
-			}
-			
-			.div-title {
-				vertical-align: middle;
-				font-weight: bold;
-				font-size: x-large;
-				color: white;
-				height: 60px;
-			}
-			
-			body .modal {
-				width: 90%; /* desired relative width */
-			  	left: 5%; /* (100%-width)/2 */
-			  	/* place center */
-			  	margin-left:auto;
-			  	margin-right:auto; 
-			}
-			
-			@media(min-width:768px) {
-			    .navbar-fixed-top .nav {
-			        padding: 15px 0;
-			    }
-			
-			    .navbar-fixed-top .navbar-brand {
-			        padding: 15px 0;
-			    }
-			}
-			
-			/* style icon */
-			.inner-addon .glyphicon {
-		    	position: absolute;
-		  		padding: 10px;
-		  		pointer-events: none;
-			}
-			
-			/* align icon */
-			.left-addon .glyphicon  { left:  0px;}
-			.right-addon .glyphicon { right: 20px;}
-			
-			/* add padding  */
-			.left-addon input  { padding-left:  20px; }
-			.right-addon input { padding-right: 20px; }
-			
-			input[type="checkbox"], 
-			input[type="radio"],
-			input.radio,
-			input.checkbox {
-			vertical-align:text-top;
-			width:15px;
-			height:15px;
-			padding:0;
-			margin:0;
-			position:relative;
-			overflow:hidden;
-			top:2px;
-			}
-			
-			label.description 
-			{ border:none;
-			color:#222;
-			display:block;
-			font-size:95%;
-			font-weight:700; 
-			line-height:150%; 
-			padding:0 0 1px; 
-			width: 30%; 
-			float: left; 
-			}
-		</style> 
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href='resources/css/bootstrap.min.css' rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- MetisMenu CSS -->
+    <link href='resources/css/metisMenu.min.css' rel="stylesheet" media="screen">
+
+    <!-- Timeline CSS -->
+    <link href='resources/css/timeline.css' rel="stylesheet" media="screen">
+
+    <!-- Custom CSS -->
+    <link href='resources/css/sb-admin-2.css' rel="stylesheet" media="screen">
+
+    <!-- Morris Charts CSS -->
+    <link href='resources/css/morris.css' rel="stylesheet" media="screen">
+
+    <!-- Custom Fonts -->
+    <link href='resources/css/font-awesome.css' rel="stylesheet" media="screen">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
+
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top navbar-blue" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-            	 <div class="container">
-        			<div class="row">
-           	 			<div class="col-md-6">
-                			<a href="#">
-                    			<img src='resources/images/academix_logo.png' alt="AcademiX" style="height: 100%;">
-                			</a>
-                		</div>
-                		<div class="col-md-6 div-title" style="margin-top: 20px;">
-                			<img src='resources/images/logo_text.png' alt="AcademiX" style="height: 100%; width: 20%">
-                		</div>
-                	</div>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-image: url('resources/images/header_bg.png'); background-repeat: repeat;" >
+           <div class="navbar-header">
+                <a class="navbar-brand" href="index.html" style="color: white;">
+               		<!-- <img src='resources/images/academix_logo.png' alt="AcademiX" style="height: 200%;"> -->
+               		AcademiX v1.0
+               	</a>
+            </div>
+            
+            <!-- <div class="container-fluid"> -->
+		    	<!-- <div class="navbar-header">
+		      		<a class="navbar-brand" href="#">
+		        		<img alt="Academix" src="resources/images/academix_logo.png">
+		      		</a>
+		    	</div> -->
+		  	<!-- </div> -->
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+            	<li class="dropdown">
+	            	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                   	<span class="glyphicon glyphicon-home"></span>
+	                </a>
+	            </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    	<span class="glyphicon glyphicon-envelope"></span>
+                    	<span class="glyphicon glyphicon-chevron-down" style="font-size: 0.7em;"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>Read All Messages</strong>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    	<span class="glyphicon glyphicon-tasks"></span>
+                    	<span class="glyphicon glyphicon-chevron-down" style="font-size: 0.7em;"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-tasks">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 1</strong>
+                                        <span class="pull-right text-muted">40% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                            <span class="sr-only">40% Complete (success)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 2</strong>
+                                        <span class="pull-right text-muted">20% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                            <span class="sr-only">20% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 3</strong>
+                                        <span class="pull-right text-muted">60% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (warning)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <p>
+                                        <strong>Task 4</strong>
+                                        <span class="pull-right text-muted">80% Complete</span>
+                                    </p>
+                                    <div class="progress progress-striped active">
+                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                            <span class="sr-only">80% Complete (danger)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Tasks</strong>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-tasks -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    	<span class="glyphicon glyphicon-bell"></span>
+                    	<span class="glyphicon glyphicon-chevron-down" style="font-size: 0.7em;"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <span class="glyphicon glyphicon-comment"></span> New Comment
+                                    <span class="pull-right text-muted small"> 4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <span class="glyphicon glyphicon-globe"></span> 3 New Followers
+                                    <span class="pull-right text-muted small">12 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <span class="glyphicon glyphicon-envelope"></span> Message Sent
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <span class="glyphicon glyphicon-tasks"></span> New Task
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <span class="glyphicon glyphicon-upload"></span> Server Rebooted
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-user"></span>
+                    	<span class="glyphicon glyphicon-chevron-down" style="font-size: 0.7em;"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> User Profile</a>
+                        </li>
+                        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="flot.html">Flot Charts</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Morris.js Charts</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                        </li>
+                        <li>
+                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">Panels and Wells</a>
+                                </li>
+                                <li>
+                                    <a href="buttons.html">Buttons</a>
+                                </li>
+                                <li>
+                                    <a href="notifications.html">Notifications</a>
+                                </li>
+                                <li>
+                                    <a href="typography.html">Typography</a>
+                                </li>
+                                <li>
+                                    <a href="icons.html"> Icons</a>
+                                </li>
+                                <li>
+                                    <a href="grid.html">Grid</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Second Level Item</a>
+                                </li>
+                                <li>
+                                    <a href="#">Second Level Item</a>
+                                </li>
+                                <li>
+                                    <a href="#">Third Level <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="blank.html">Blank Page</a>
+                                </li>
+                                <li>
+                                    <a href="login.html">Login Page</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Dashboard</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-comment" aria-hidden="true" style="font-size: 5.0em; vertical-align: baseline;"></span>
+                                </div>
+                                <div class="col-xs-9">
+                                    <div class="huge">26</div>
+                                    <div>New Comments!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i><span class="glyphicon glyphicon-circle-arrow-right"></span></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-tasks" aria-hidden="true" style="font-size: 5.0em; vertical-align: baseline;"></span>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">12</div>
+                                    <div>New Tasks!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i><span class="glyphicon glyphicon-circle-arrow-right"></span></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true" style="font-size: 5.0em; vertical-align: baseline;"></span>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">124</div>
+                                    <div>New Orders!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i><span class="glyphicon glyphicon-circle-arrow-right"></span></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <span class="glyphicon glyphicon-tags" aria-hidden="true" style="font-size: 5.0em; vertical-align: baseline;"></span>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">13</div>
+                                    <div>Support Tickets!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                 <span class="pull-right"><i><span class="glyphicon glyphicon-circle-arrow-right"></span></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Actions
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Action</a>
+                                        </li>
+                                        <li><a href="#">Another action</a>
+                                        </li>
+                                        <li><a href="#">Something else here</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="morris-area-chart"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Bar Chart Example
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Actions
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Action</a>
+                                        </li>
+                                        <li><a href="#">Another action</a>
+                                        </li>
+                                        <li><a href="#">Something else here</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Time</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>3326</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>3:29 PM</td>
+                                                    <td>$321.33</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3325</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>3:20 PM</td>
+                                                    <td>$234.34</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3324</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>3:03 PM</td>
+                                                    <td>$724.17</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3323</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>3:00 PM</td>
+                                                    <td>$23.71</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3322</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>2:49 PM</td>
+                                                    <td>$8345.23</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3321</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>2:23 PM</td>
+                                                    <td>$245.12</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3320</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>2:15 PM</td>
+                                                    <td>$5663.54</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3319</td>
+                                                    <td>10/21/2013</td>
+                                                    <td>2:13 PM</td>
+                                                    <td>$943.45</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.table-responsive -->
+                                </div>
+                                <!-- /.col-lg-4 (nested) -->
+                                <div class="col-lg-8">
+                                    <div id="morris-bar-chart"></div>
+                                </div>
+                                <!-- /.col-lg-8 (nested) -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="timeline">
+                                <li>
+                                    <div class="timeline-badge"><i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
+                                            </p>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero laboriosam dolor perspiciatis omnis exercitationem. Beatae, officia pariatur? Est cum veniam excepturi. Maiores praesentium, porro voluptas suscipit facere rem dicta, debitis.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="timeline-inverted">
+                                    <div class="timeline-badge warning"><i class="fa fa-credit-card"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolorem quibusdam, tenetur commodi provident cumque magni voluptatem libero, quis rerum. Fugiat esse debitis optio, tempore. Animi officiis alias, officia repellendus.</p>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium maiores odit qui est tempora eos, nostrum provident explicabo dignissimos debitis vel! Adipisci eius voluptates, ad aut recusandae minus eaque facere.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="timeline-badge danger"><i class="fa fa-bomb"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus numquam facilis enim eaque, tenetur nam id qui vel velit similique nihil iure molestias aliquam, voluptatem totam quaerat, magni commodi quisquam.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="timeline-inverted">
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates est quaerat asperiores sapiente, eligendi, nihil. Itaque quos, alias sapiente rerum quas odit! Aperiam officiis quidem delectus libero, omnis ut debitis!</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="timeline-badge info"><i class="fa fa-save"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis minus modi quam ipsum alias at est molestiae excepturi delectus nesciunt, quibusdam debitis amet, beatae consequuntur impedit nulla qui! Laborum, atque.</p>
+                                            <hr>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="fa fa-gear"></i>  <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">Action</a>
+                                                    </li>
+                                                    <li><a href="#">Another action</a>
+                                                    </li>
+                                                    <li><a href="#">Something else here</a>
+                                                    </li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Separated link</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi fuga odio quibusdam. Iure expedita, incidunt unde quis nam! Quod, quisquam. Officia quam qui adipisci quas consequuntur nostrum sequi. Consequuntur, commodi.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="timeline-inverted">
+                                    <div class="timeline-badge success"><i class="fa fa-graduation-cap"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt obcaecati, quaerat tempore officia voluptas debitis consectetur culpa amet, accusamus dolorum fugiat, animi dicta aperiam, enim incidunt quisquam maxime neque eaque.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-8 -->
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bell fa-fw"></i> Notifications Panel
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-comment fa-fw"></i> New Comment
+                                    <span class="pull-right text-muted small"><em>4 minutes ago</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="pull-right text-muted small"><em>12 minutes ago</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                    <span class="pull-right text-muted small"><em>27 minutes ago</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-tasks fa-fw"></i> New Task
+                                    <span class="pull-right text-muted small"><em>43 minutes ago</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="pull-right text-muted small"><em>11:32 AM</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-bolt fa-fw"></i> Server Crashed!
+                                    <span class="pull-right text-muted small"><em>11:13 AM</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-warning fa-fw"></i> Server Not Responding
+                                    <span class="pull-right text-muted small"><em>10:57 AM</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
+                                    <span class="pull-right text-muted small"><em>9:49 AM</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-money fa-fw"></i> Payment Received
+                                    <span class="pull-right text-muted small"><em>Yesterday</em>
+                                    </span>
+                                </a>
+                            </div>
+                            <!-- /.list-group -->
+                            <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Donut Chart Example
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-donut-chart"></div>
+                            <a href="#" class="btn btn-default btn-block">View Details</a>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    <div class="chat-panel panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-comments fa-fw"></i>
+                            Chat
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                                <ul class="dropdown-menu slidedown">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-refresh fa-fw"></i> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-check-circle fa-fw"></i> Available
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-times fa-fw"></i> Busy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o fa-fw"></i> Away
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-sign-out fa-fw"></i> Sign Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="chat">
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Jack Sparrow</strong>
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+                                            </small>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 13 mins ago</small>
+                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Jack Sparrow</strong>
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 14 mins ago</small>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="right clearfix">
+                                    <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <small class=" text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 15 mins ago</small>
+                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.panel-body -->
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat">
+                                        Send
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /.panel-footer -->
+                    </div>
+                    <!-- /.panel .chat-panel -->
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+            <!-- /.row -->
         </div>
-    </nav>
-    <div class="container">
-		<div class="row">
-			<div class="col-md-3">
-				A
-			</div>
-			<div class="col-md-3">
-				B
-			</div>
-			<div class="col-md-3">
-				C
-			</div>
-			<div class="col-md-3">
-				D
-			</div>
-		</div>		
-	</div>
-	
-	<script type="text/javascript" src="resources/js/jquery-1.11.1.min.js"></script>
-	<script type="text/javascript" src="resources/js/jquery-ui-1.10.4.min.js"></script>
-	<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="resources/js/bootstrap-slider.js"></script>
-	<script type="text/javascript" src="resources/js/bootstrap-switch.min.js"></script>
-	
-	<script>
-		$(document).ready(function(){
-			$("#successResponsePanel").hide();
-			$("#errorResponsePanel").hide();
-						
-			$("#salaryPercentageDiv").hide();
-			$("#currentSalaryDiv").hide();
-			
-			$(".form-control").val('');
-			
-			$("#currentAge").val(25);
-			$("#payoutAge").val(60);
-			$("#payoutPeriod").val(20);
-			$("#riskProfileDiv").hide();
-			
-			$(".switch").bootstrapSwitch({
-				onColor : 'success',
-				offColor : 'warning',
-				onText : 'YES',
-				offText : 'NO',
-				animate : true,
-				inverse : true,
-				state : false,
-				onSwitchChange : function(event, state) {
-					$(this).val(state);
-				},
-				onInit : function(event, state) {
-					$(this).val(false);
-				}
-			});
-			
-			$("#salaryComponent").bootstrapSwitch({
-				onColor : 'success',
-				offColor : 'warning',
-				onText : 'Salary Percent',
-				offText : 'Amount',
-				animate : true,
-				inverse : true,				
-				onSwitchChange : function(event, state) {
-					if(state){
-						$("#salaryPercentageDiv").show();
-						$("#currentSalaryDiv").show();
-						$("#selectedAmountDiv").hide();
-						$("#selectedAmount").val('');
-					} else {
-						$("#salaryPercentageDiv").hide();
-						$("#currentSalaryDiv").hide();
-						$("#selectedAmountDiv").show();	
-						$("#currentSalary").val('');
-						$("#salaryPercentage").val('');
-					}
-				}
-			});
-			
-			var currentAgeSlider = $("#currentAgeSlider").slider().on('slideStop', function(event){
-				$("#currentAge").val(event.value);
-			});
-			
-			$("#currentAge").on('change', function(){
-				currentAgeSlider.slider('setValue', $(this).val());
-			});
-			
-			var payoutAgeSlider = $("#payoutAgeSlider").slider().on('slideStop', function(event){
-				$("#payoutAge").val(event.value);
-			});
-			
-			$("#payoutAge").on('change', function(){
-				payoutAgeSlider.slider('setValue', $(this).val());
-			});
-			
-			var payoutPeriodSlider = $("#payoutPeriodSlider").slider().on('slideStop', function(event){
-				$("#payoutPeriod").val(event.value);
-			});
-			
-			$("#payoutPeriod").on('change', function(){
-				payoutPeriodSlider.slider('setValue', $(this).val());
-			});
-			
-			$("#reset").click(function(){
-				$(".form-control").val('');
-				
-				$("#currentAge").val(25);
-				currentAgeSlider.slider('setValue', 25);
-				$("#payoutAge").val(60);
-				payoutAgeSlider.slider('setValue', 60);
-				$("#payoutPeriod").val(20);
-				payoutPeriodSlider.slider('setValue', 20);
-				$("#successResponsePanel").hide();
-				$("#riskProfileDiv").hide();
-				$("#investmentType").val("");
-				$(".switch").bootstrapSwitch('state',false, false);
-				$('#menu1').html("Select Product " + '<span class="caret"</span>');
-				$('#menu2').html("Select Investment Type " + '<span class="caret"</span>');
-			});
-			
-			$("#pcForm").submit(function(event){
-				
-			    $.ajax({
-		           type: "POST",
-		           url: '<c:url value="/cost/calculate"/>',
-		           data: createFormData(), // serializes the form's elements.
-		           dataType: 'json',
-		           contentType: "application/json; charset=utf-8",
-				  
-		           success: function(data)
-		           {
-				  
-		               if(data.message == 'SUCCESS'){
-							
-		            	   	$("#errorResponsePanel").hide();
-		            	   	$("#successResponsePanel").show();
-			       			
-			       			$("#grossReturnAmountForFirstYear").html(data.result.grossReturnAmountForFirstYear);
-			       			$("#grossReturnPercentageForFirstYear").html(data.result.grossReturnPercentageForFirstYear);
-			       			$("#costAmountForFirstYear").html(data.result.costAmountForFirstYear);
-			       			$("#costPercentageForFirstYear").html(data.result.costPercentageForFirstYear);
-			       			$("#currentAssets").html(data.result.currentAsset);
-			       			$("#yearlyPayIn").html(data.result.yearlyPayIn);
-			       			$("#grossReturn").html(data.result.grossReturn);
-			       			$("#directCost").html(data.result.directCost);
-			       			$("#indirectCost").html(data.result.indirectCost);
-			       			$("#assetAfterFirstYear").html(data.result.assetAfterFirstYear);
-								
-								if($('#costTable tr').size()>2){
-									for(var j =0;j < data.result.costs.length;j++)
-									{
-										 $('#costTable tr').remove();
-									}
-								}
-								$row1 = $('<tr rowspan="4"/>');
-								
-								$col11 = $('<th colspan="6"/>');
-								$col12 = $('<th colspan="6"/>');
-								$col13 = $('<th colspan="6"/>');
-															
-								$col11.html("&nbsp;&nbsp;&nbsp;&nbsp;AGE");
-								$col12.html("&nbsp;&nbsp;AAOK");
-								$col13.html("AAOP");
-									
-								$row1.append($col11);
-								$row1.append($col12);
-								$row1.append($col13)
-								
-								$("#costTable").append($row1);
-								
-							for(var i =0;i < data.result.costs.length;i++)
-							{
-								var item =  data.result.costs[i];
-								
-								$row = $('<tr rowspan="4" id="dynamicRow"'+'"i"'+'/>');
-								
-								$col = $('<td colspan="6"/>');
-								$col1 = $('<td colspan="6"/>');
-								$col2 = $('<td colspan="6"/>');
-								
-								$col.html("&nbsp;&nbsp;&nbsp;&nbsp;"+item.age);
-								$col1.html(item.aop);
-								$col2.html(item.aok);
-								
-								$row.append($col);
-								$row.append($col1);
-								$row.append($col2);
-								$("#costTable").append($row);
-								
-							}
-			       			
-			       			//$("#collapseSuccess").slideDown();
-			       			if($("#icon").hasClass("glyphicon-chevron-right")){
-			       				$("#collapseSuccess").slideDown();
-			       				
-								$("#icon").removeClass("glyphicon-chevron-right");
-								$("#icon").addClass("glyphicon-chevron-down");
-							}
-			       			
-			       			$('html, body').animate({
-			                    scrollTop: $("#successResponsePanel").offset().top
-			              	}, 1000);  
-		               } else {
-						   	$("#successResponsePanel").hide();	
-		            	   	$("#errorResponsePanel").show();
-							var messages = data.message.split('.');
-						
-							if($('#errorTable tr').size()>0){
-									for(var j =0;j < messages.length;j++)
-									{
-										 $('#errorTable tr').remove();
-									}
-								}
-							for(var k =0;k < messages.length;k++){
-								$row22 = $('<tr/>');
-								$col22 = $('<td/>');
-								$col22.html(messages[k]);
-								$row22.append($col22);
-								$("#errorTable").append($row22);
-							}
-							            	   	
-		               }
-		           },
-		           error: function(jqXHR, textStatus, errorMessage) {
-		        	   	$("#successResponsePanel").hide();	
-	            	   	$("#errorResponsePanel").show();
-						$row22 = $('<tr/>');
-						$col22 = $('<td/>');
-						$col22.html(errorMessage);
-						$row22.append($col22);
-						$("#errorTable").append($row22);
-	            	   
-	                }
-		         });
-				return false;
-			});
-			
-			$("#resultTitle").click(function(){
-				$("#collapseSuccess").slideToggle();
-				
-				if($("#icon").hasClass("glyphicon-chevron-right")){
-					$("#icon").removeClass("glyphicon-chevron-right");
-					$("#icon").addClass("glyphicon-chevron-down");
-					$('html, body').animate({
-	                    scrollTop: $("#successResponsePanel").offset().top
-	              	}, 1000); 
-				} else {
-					$("#icon").removeClass("glyphicon-chevron-down");
-					$("#icon").addClass("glyphicon-chevron-right");
-				}
-			});
-			
-			$(".close").click(function(){
-				$(this).parent().hide();
-			})
-		});
-	
-	function retDivision(value){
-		if(value!=""){
-			return parseInt(value)/100;
-		}else {
-			return value;
-		}
-	}
-		
-	function createFormData(){
-						
-			return '{ '+
-						'"product":"'+$("#product").val()+'", '+
-						'"currentAsset":"'+$("#currentAsset").val()+'", '+
-						'"payIn":"'+$("#payIn").val()+'", '+
-						'"currentAge": "'+$("#currentAge").val()+'", '+
-						'"payoutAge":"'+$("#payoutAge").val()+'", '+
-						'"payoutPeriod":"'+$("#payoutPeriod").val()+'", '+
-						'"investment":{ '+
-						'"investmentType":"'+$("#investmentType").val()+'", '+
-						'"assetAllocation":{ '+
-							'"shortTermBonds":"'+retDivision($("#korteObligationer").val())+'", '+
-							'"longTermBonds":"'+retDivision($("#langeObligationer").val())+'", '+
-							'"indexBonds":"'+retDivision($("#indexObligationer").val())+'", '+
-							'"foreignBonds":"'+retDivision($("#udenlandskeObligationer").val())+'", '+
-							'"highYieldBonds":"'+retDivision($("#hojrentOobligationer").val())+'", '+
-							'"danishStocks":"'+retDivision($("#danskeAktier").val())+'", '+
-							'"foreignStocks":"'+retDivision($("#udenlandskeAktier").val())+'", '+
-							'"unnotedStocks":"'+retDivision($("#unoteredeAktier").val())+'", '+
-							'"depositPensionPools":"'+retDivision($("#indlanPulje").val())+'"'+
-						'}'+
-						'}'+
-					'}';
-		}
-			
-		
-		function showHideRiskProfile(){
-			if(document.getElementById("investmentType").value=="CUSTOM"){
-				$("#riskProfileDiv").show();
-			}else {
-				$("#riskProfileDiv").hide();
-			}
-		}
-		
-		$(".dropdown-menu li a").click(function(){
-		
-		  var selText = $(this).text();
-		  
-		    if(selText=="Kapitalpension"){
-			 $("#product").val("KAPITALPENSION");
-			}else if(selText=="Selvpension"){
-			 $("#product").val("SELVPENSION");
-			}else if(selText=="Borneopsparing"){
-			 $("#product").val("BORNEOPSPARING");
-			}else if(selText=="Ratepension"){
-			 $("#product").val("RATEPENSION");
-			}else if(selText=="Aldersopsparing"){
-			 $("#product").val("ALDERSOPSPARING");
-			}else if(selText=="High Risk"){
-			 $("#investmentType").val("HIGH_RISK");
-			 showHideRiskProfile();
-			}else if(selText=="Medium Risk"){
-			 $("#investmentType").val("MEDIUM_RISK");
-			 showHideRiskProfile();
-			}else if(selText=="Low Risk"){
-			 $("#investmentType").val("LOW_RISK");
-			 showHideRiskProfile();
-			}else if(selText=="Individual Selection"){
-			 $("#investmentType").val("CUSTOM");
-			 showHideRiskProfile();
-			}
-						
-		  $(this).parents('.form-group').find('button[data-toggle="dropdown"]').html(selText+' <span class="caret"></span>');
-		});
-	</script>
-	
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="resources/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="resources/js/jquery-ui-1.10.4.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script type="text/javascript" src="resources/js/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script type="text/javascript" src="resources/js/raphael-min.js"></script>
+    <script type="text/javascript" src="resources/js/morris.min.js"></script>
+    <script type="text/javascript" src="resources/js/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script type="text/javascript" src="resources/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
