@@ -37,8 +37,13 @@
 							<i class="fa fa-bell fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
+<<<<<<< HEAD
 							<div class="huge">New Alerts</div>
 							<div>12</div>
+=======
+							<div class="huge">12</div>
+							<div>New Alerts</div>
+>>>>>>> branch 'master' of https://github.com/nileshkumbhar/academix.git
 						</div>
 					</div>
 				</div>
@@ -128,8 +133,13 @@
 							<i class="fa fa-envelope fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
+<<<<<<< HEAD
 							<div class="huge">New Messages!</div>
 							<div>3</div>
+=======
+							<div class="huge">3</div>
+							<div>New Messages!</div>
+>>>>>>> branch 'master' of https://github.com/nileshkumbhar/academix.git
 						</div>
 					</div>
 				</div>
