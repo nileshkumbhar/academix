@@ -88,7 +88,7 @@
     <!-- Morris Charts JavaScript -->
     <script type="text/javascript" src="resources/js/raphael-min.js"></script>
     <script type="text/javascript" src="resources/js/morris.min.js"></script>
-    <script type="text/javascript" src="resources/js/morris-data.js"></script>
+    <!-- <script type="text/javascript" src="resources/js/morris-data.js"></script> -->
 
     <!-- Custom Theme JavaScript -->
     <script type="text/javascript" src="resources/js/sb-admin-2.js"></script>
