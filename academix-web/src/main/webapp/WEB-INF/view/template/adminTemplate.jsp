@@ -20,6 +20,7 @@
     <!-- Bootstrap Core CSS -->
     <link href='resources/css/bootstrap.min.css' rel="stylesheet" media="screen">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href='resources/css/metisMenu.min.css' rel="stylesheet" media="screen">
@@ -34,7 +35,9 @@
     <link href='resources/css/morris.css' rel="stylesheet" media="screen">
 
     <!-- Custom Fonts -->
-    <link href='resources/css/font-awesome.css' rel="stylesheet" media="screen">
+    <link href='resources/css/font-awesome.min.css' rel="stylesheet" media="screen">
+    
+    <link href='resources/css/footer.css' rel="stylesheet" media="screen">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,9 +69,12 @@
         	<tiles:insertAttribute name="body" />
 		</div>
         <!-- /#page-wrapper -->
+        
+        <tiles:insertAttribute name="footer" />
     </div>
+    
     <!-- /#wrapper -->
-
+	
     <!-- jQuery -->
     <script type="text/javascript" src="resources/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="resources/js/jquery-ui-1.10.4.min.js"></script>
