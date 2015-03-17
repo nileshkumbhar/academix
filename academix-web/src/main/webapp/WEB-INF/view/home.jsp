@@ -48,7 +48,7 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-image: url('resources/images/header_bg.png'); background-repeat: repeat;" >
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background-color: #000000; background-repeat: repeat;" >
            <div class="navbar-header">
                 <a class="navbar-brand" href="index.html" style="color: white;">
                		<!-- <img src='resources/images/academix_logo.png' alt="AcademiX" style="height: 200%;"> -->
