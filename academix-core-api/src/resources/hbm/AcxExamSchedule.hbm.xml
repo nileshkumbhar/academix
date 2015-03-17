@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 17, 2015 12:04:18 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xinov.academix.models.AcxExamSchedule" table="acx_exam_schedule" catalog="ACX">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="examId" type="int">
+            <column name="exam_id" not-null="true" />
+        </property>
+        <property name="classId" type="int">
+            <column name="class_id" not-null="true" />
+        </property>
+        <property name="subjectId" type="int">
+            <column name="subject_id" not-null="true" />
+        </property>
+        <property name="date" type="date">
+            <column name="date" length="10" not-null="true" />
+        </property>
+        <property name="startTime" type="timestamp">
+            <column name="start_time" length="19" />
+        </property>
+        <property name="endTime" type="timestamp">
+            <column name="end_time" length="19" />
+        </property>
+        <property name="examinorId" type="string">
+            <column name="examinor_id" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

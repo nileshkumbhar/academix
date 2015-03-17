@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 17, 2015 12:04:18 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xinov.academix.models.AcxExamResult" table="acx_exam_result" catalog="ACX">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="examinorId" type="string">
+            <column name="examinor_id" length="45" not-null="true" />
+        </property>
+        <property name="studentId" type="string">
+            <column name="student_id" length="45" not-null="true" />
+        </property>
+        <property name="examId" type="int">
+            <column name="exam_id" not-null="true" />
+        </property>
+        <property name="subjectId" type="int">
+            <column name="subject_id" not-null="true" />
+        </property>
+        <property name="totalMarks" type="java.lang.Integer">
+            <column name="total_marks" />
+        </property>
+        <property name="marksObtained" type="java.lang.Integer">
+            <column name="marks_obtained" />
+        </property>
+        <property name="gradeObtained" type="string">
+            <column name="grade_obtained" length="45" />
+        </property>
+        <property name="percentage" type="big_decimal">
+            <column name="percentage" precision="2" />
+        </property>
+        <property name="result" type="string">
+            <column name="result" length="45" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

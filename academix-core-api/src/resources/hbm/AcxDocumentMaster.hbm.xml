@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 17, 2015 12:04:18 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xinov.academix.models.AcxDocumentMaster" table="acx_document_master" catalog="ACX">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="documentName" type="string">
+            <column name="document_name" not-null="true" />
+        </property>
+        <property name="documentPath" type="string">
+            <column name="document_path" not-null="true" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="created_by" length="45" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="created_date" length="19" />
+        </property>
+        <property name="modifiedBy" type="string">
+            <column name="modified_by" length="45" />
+        </property>
+        <property name="modifiedDate" type="timestamp">
+            <column name="modified_date" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

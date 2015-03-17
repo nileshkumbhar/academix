@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 17, 2015 12:04:18 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xinov.academix.models.AcxAdmissionInfo" table="acx_admission_info" catalog="ACX">
+        <id name="applicationId" type="string">
+            <column name="application_id" length="45" />
+            <generator class="assigned" />
+        </id>
+        <property name="applicantName" type="string">
+            <column name="applicant_name" length="45" not-null="true" />
+        </property>
+        <property name="applicantContactNo" type="string">
+            <column name="applicant_contact_no" length="45" not-null="true" />
+        </property>
+        <property name="applicantEmail" type="string">
+            <column name="applicant_email" length="100" not-null="true" />
+        </property>
+        <property name="applicationStatus" type="int">
+            <column name="application_status" not-null="true" />
+        </property>
+        <property name="appkicationStatusModifiedBy" type="string">
+            <column name="appkication_status_modified_by" length="45" not-null="true" />
+        </property>
+        <property name="appkicationStatusModifiedOn" type="timestamp">
+            <column name="appkication_status_modified_on" length="19" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" />
+        </property>
+    </class>
+</hibernate-mapping>

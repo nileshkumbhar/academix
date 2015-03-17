@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 17, 2015 12:04:18 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xinov.academix.models.AcxExamSeatingArrangement" table="acx_exam_seating_arrangement" catalog="ACX">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="examId" type="int">
+            <column name="exam_id" not-null="true" />
+        </property>
+        <property name="studentId" type="string">
+            <column name="student_id" length="45" not-null="true" />
+        </property>
+        <property name="hallNo" type="string">
+            <column name="hall_no" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

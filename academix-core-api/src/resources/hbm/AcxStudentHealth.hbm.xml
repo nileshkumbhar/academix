@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 17, 2015 12:04:18 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xinov.academix.models.AcxStudentHealth" table="acx_student_health" catalog="ACX">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="studentId" type="string">
+            <column name="student_id" length="45" not-null="true" />
+        </property>
+        <property name="day" type="timestamp">
+            <column name="day" length="19" />
+        </property>
+        <property name="height" type="int">
+            <column name="height" not-null="true" />
+        </property>
+        <property name="weight" type="int">
+            <column name="weight" not-null="true" />
+        </property>
+        <property name="healthRemarks" type="string">
+            <column name="health_remarks" />
+        </property>
+    </class>
+</hibernate-mapping>

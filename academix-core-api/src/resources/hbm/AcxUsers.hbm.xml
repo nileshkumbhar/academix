@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 17, 2015 12:04:18 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xinov.academix.models.AcxUsers" table="acx_users" catalog="ACX">
+        <id name="userId" type="string">
+            <column name="user_id" length="45" />
+            <generator class="assigned" />
+        </id>
+        <property name="password" type="string">
+            <column name="password" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="100" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" not-null="true" />
+        </property>
+        <property name="contactNo" type="string">
+            <column name="contact_no" length="45" not-null="true" />
+        </property>
+        <property name="emailId" type="string">
+            <column name="email_id" length="100" not-null="true" />
+        </property>
+        <property name="schoolId" type="int">
+            <column name="school_id" not-null="true" />
+        </property>
+        <property name="birthDate" type="date">
+            <column name="birth_date" length="10" />
+        </property>
+        <property name="sex" type="string">
+            <column name="sex" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

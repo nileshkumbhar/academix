@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 17, 2015 12:04:18 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xinov.academix.models.AcxMeetings" table="acx_meetings" catalog="ACX">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="schoolId" type="int">
+            <column name="school_id" not-null="true" />
+        </property>
+        <property name="meetingType" type="int">
+            <column name="meeting_type" not-null="true" />
+        </property>
+        <property name="meetingDay" type="timestamp">
+            <column name="meeting_day" length="19" />
+        </property>
+        <property name="meetingStatus" type="int">
+            <column name="meeting_status" not-null="true" />
+        </property>
+        <property name="moms" type="string">
+            <column name="moms" length="1000" />
+        </property>
+    </class>
+</hibernate-mapping>
