@@ -128,7 +128,7 @@
 							<i class="fa fa-envelope fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">New Messages!</div>
+							<div class="huge">Messages!</div>
 							<div>3</div>
 						</div>
 					</div>
