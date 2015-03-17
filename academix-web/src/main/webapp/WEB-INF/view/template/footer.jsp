@@ -42,7 +42,7 @@
 						<li>
 							<div class="input-append newsletter-box text-center">
 								<input type="text" class="full text-center" placeholder="Email ">
-								<button class="btn  bg-gray" type="button">
+								<button class="btn bg-gray" type="button">
 									contact@academix.xom <i class="fa fa-long-arrow-right"> </i>
 								</button>
 							</div>
@@ -71,7 +71,7 @@
 	<div class="footer-bottom">
 		<div class="container">
 			<p class="pull-left">Copyright © AcademiX 2014.
-				All right reserved.</p>
+				All rights reserved.</p>
 		</div>
 	</div>
 	<!--/.footer-bottom-->

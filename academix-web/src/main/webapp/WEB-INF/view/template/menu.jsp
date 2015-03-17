@@ -18,7 +18,7 @@
 					Home</a>
 			</li>
 			
-			<!-- Admission -->
+			<!-- Attendance -->
 			<li>
 				<a href="#">
 					<span class="glyphicon glyphicon-check"></span>&nbsp;
