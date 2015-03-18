@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:sec="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd
 	http://www.springframework.org/schema/beans 
@@ -14,7 +16,9 @@
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 	http://www.springframework.org/schema/aop 
-	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 	
 	<import resource="classpath:backend-service.xml"/>
 	
@@ -56,5 +60,26 @@
 			</list>
 		</property>
 	</bean>
+	
+	<sec:http auto-config="true">
+		<sec:intercept-url pattern="/**" access="ROLE_TEACHER" />
+		<sec:form-login 
+		    login-page="/login" 
+		    default-target-url="/welcome" 
+			authentication-failure-url="/login?error" 
+			username-parameter="username"
+			password-parameter="password" />
+		<sec:logout logout-success-url="/login?logout" />
+		<!-- enable csrf protection -->
+		<!-- <csrf/> -->
+	</sec:http>
+ 
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+		  <sec:user-service>
+			<sec:user name="nilesh" password="123456" authorities="ROLE_TEACHER" />
+		  </sec:user-service>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
 	
 </beans>
