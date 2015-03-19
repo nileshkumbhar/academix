@@ -18,6 +18,7 @@
 		<junit.version>4.11</junit.version>
 		<hibernate.version>4.2.1.Final</hibernate.version>
 		<apache.tiles.version>3.0.5</apache.tiles.version>
+		<academix.version>1.0.0-SNAPSHOT</academix.version>
 		<!-- <cucumber-jvm.version>1.2.0</cucumber-jvm.version>
 		<it-classes-directory>${project.build.directory}/it-classes</it-classes-directory>
 		<cucumber.options>-/-glue com.nordea.costcalculator.it
@@ -29,12 +30,43 @@
 	<dependencies>
 
 
+		<!-- Module dependencies -->
+		<dependency>
+			<groupId>com.xinov.academix</groupId>
+			<artifactId>academix-core-api</artifactId>
+			<version>${academix.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring-framework.version}</version>
+			<exclusions>
+		    	<exclusion>
+		            <groupId>org.springframework</groupId>
+		            <artifactId>spring-expression</artifactId>
+		        </exclusion>
+		    </exclusions>
 		</dependency>
-
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-expression</artifactId>
+		    <version>${spring-framework.version}</version>
+		</dependency>
+		
+		<!-- <dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-expression</artifactId>
+		    <version>${spring-framework.version}</version>
+		    <exclusions>
+		    	<exclusion>
+		    		<groupId>org.springframework</groupId>
+		    		<artifactId>spring-context</artifactId>
+		    	</exclusion>
+		    </exclusions>
+		</dependency> -->
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>

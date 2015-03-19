@@ -17,4 +17,10 @@
 		<put-attribute name="body" value="/WEB-INF/view/home1.jsp" />
 	</definition>
 	
+	<definition name="login" extends="AdminTemplate">
+		<put-attribute name="title" value="AcademiX-Login" />
+		<put-attribute name="menu" value="" />
+		<put-attribute name="body" value="/WEB-INF/view/login.jsp" />
+	</definition>
+	
 </tiles-definitions>
