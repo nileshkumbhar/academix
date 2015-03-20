@@ -40,19 +40,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${spring-framework.version}</version>
-			<exclusions>
-		    	<exclusion>
-		            <groupId>org.springframework</groupId>
-		            <artifactId>spring-expression</artifactId>
-		        </exclusion>
-		    </exclusions>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-expression</artifactId>
-		    <version>${spring-framework.version}</version>
 		</dependency>
 		
 		<!-- <dependency>
@@ -88,7 +75,7 @@
 		</dependency>
 		
 		<!-- Spring Security -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>3.2.0.RELEASE</version>
@@ -97,7 +84,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
 			<version>3.2.0.RELEASE</version>
-		</dependency>
+		</dependency> -->
 
 		<!-- Apache Tiles -->
 		<dependency>
@@ -128,7 +115,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>${spring-framework.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -200,7 +186,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>${spring-framework.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -238,7 +223,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<version>${spring-framework.version}</version>
 		</dependency>
 
 		<dependency>
@@ -286,20 +270,17 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring-framework.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${spring-framework.version}</version>
 		</dependency>
 
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>${spring-framework.version}</version>
 		</dependency>
 
 		<dependency>

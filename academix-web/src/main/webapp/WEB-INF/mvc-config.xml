@@ -61,7 +61,7 @@
 		</property>
 	</bean>
 	
-	<sec:http auto-config="true">
+	<!-- <sec:http auto-config="true">
 		<sec:intercept-url pattern="/**" access="ROLE_TEACHER" />
 		<sec:form-login 
 		    login-page="/login" 
@@ -70,8 +70,8 @@
 			username-parameter="username"
 			password-parameter="password" />
 		<sec:logout logout-success-url="/login?logout" />
-		<!-- enable csrf protection -->
-		<!-- <csrf/> -->
+		enable csrf protection
+		<csrf/>
 	</sec:http>
  
 	<sec:authentication-manager>
@@ -80,6 +80,6 @@
 			<sec:user name="nilesh" password="123456" authorities="ROLE_TEACHER" />
 		  </sec:user-service>
 		</sec:authentication-provider>
-	</sec:authentication-manager>
+	</sec:authentication-manager> -->
 	
 </beans>
