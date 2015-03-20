@@ -11,5 +11,10 @@ public class HomeController {
 	public void showTestCalculatorPage(Model model) {
 
 	}
+	
+	@RequestMapping("/")
+	public String showDefaultPage(Model model) {
+		return "forward:/login";
+	}
 
 }

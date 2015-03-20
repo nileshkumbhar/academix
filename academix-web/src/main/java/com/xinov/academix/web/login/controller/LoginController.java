@@ -15,4 +15,9 @@ public class LoginController {
 	public void login(@ModelAttribute User user){
 		user = new User();
 	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public void submitLogin(@ModelAttribute User user){
+		System.out.println(user.getUserId());
+	}
 }
