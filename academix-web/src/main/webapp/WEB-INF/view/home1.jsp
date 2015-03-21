@@ -12,10 +12,10 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-check-square-o fa-5x"></i>
+							<i class="fa fa-check-square-o fa-4x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">Attendance</div>
+							<div><h3>Attendance</h3></div>
 							<div>Class 3A</div>
 						</div>
 					</div>
@@ -34,10 +34,10 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-bell fa-5x"></i>
+							<i class="fa fa-bell fa-4x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">New Alerts</div>
+							<div><h3>New Alerts</h3></div>
 							<div>12</div>
 						</div>
 					</div>
@@ -56,10 +56,10 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-graduation-cap fa-5x"></i>
+							<i class="fa fa-graduation-cap fa-4x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">Examination</div>
+							<div><h3>Examination</h3></div>
 							<div>Unit Test 3</div>
 						</div>
 					</div>
@@ -78,10 +78,10 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-calendar fa-5x"></i>
+							<i class="fa fa-calendar fa-4x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">Scheduler</div>
+							<div><h3>Scheduler</h3></div>
 							<div>View schedule!</div>
 						</div>
 					</div>
@@ -102,10 +102,10 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-clipboard fa-5x"></i>
+							<i class="fa fa-clipboard fa-4x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">Notice Board</div>
+							<div><h3>Notice Board</h3></div>
 							<div>New notices!</div>
 						</div>
 					</div>
@@ -125,10 +125,10 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-envelope fa-5x"></i>
+							<i class="fa fa-envelope fa-4x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">Messages!</div>
+							<div><h3>Messages!</h3></div>
 							<div>3</div>
 						</div>
 					</div>
@@ -148,10 +148,10 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-book fa-5x"></i>
+							<i class="fa fa-book fa-4x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">Notes</div>
+							<div><h3>Notes</h3></div>
 							<div>Make Notes!</div>
 						</div>
 					</div>
@@ -171,10 +171,10 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="col-xs-3">
-							<i class="fa fa-users fa-5x"></i>
+							<i class="fa fa-users fa-4x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">Meetings</div>
+							<div><h3>Meetings</h3></div>
 							<div>View Meetings!</div>
 						</div>
 					</div>

@@ -13,7 +13,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/")
-	public String showDefaultPage(Model model) {
+	public String showDefaultPage() {
 		return "forward:/login";
 	}
 
