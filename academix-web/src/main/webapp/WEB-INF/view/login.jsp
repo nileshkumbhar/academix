@@ -15,7 +15,7 @@
 					<div class="row">
 						<div class="col-xs-6">
 							<div class="well">
-								<form:form id="loginForm" method="POST" action="/login" modelAttribute="user"
+								<form:form id="loginForm" method="POST" action="login" modelAttribute="user"
 									novalidate="novalidate">
 									<div class="form-group">
 										<label for="username" class="control-label">Username</label> <form:input

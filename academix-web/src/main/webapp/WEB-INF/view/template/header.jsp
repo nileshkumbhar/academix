@@ -14,6 +14,7 @@
 <!-- /.navbar-header -->
 
 <ul class="nav navbar-top-links navbar-right">
+	Welcome ${user.name}
 	<li class="dropdown"><a class="dropdown-toggle"
 		data-toggle="dropdown" href="#"> <span
 			class="glyphicon glyphicon-home"></span>
