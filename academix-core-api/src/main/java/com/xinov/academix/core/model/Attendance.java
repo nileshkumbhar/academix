@@ -3,6 +3,7 @@ package com.xinov.academix.core.model;
 // Generated Mar 18, 2015 5:31:53 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,12 +25,12 @@ public class Attendance implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 8406014332263360045L;
-	
+
 	private int id;
 	private ClassMaster classMaster;
 	private SchoolInfo schoolInfo;
-	private User usersByTeacherId;
-	private User usersByStudentId;
+	private User userByTeacherId;
+	private User userByStudentId;
 	private Date date;
 	private boolean present;
 	private String absentReason;
@@ -37,26 +38,24 @@ public class Attendance implements java.io.Serializable {
 	public Attendance() {
 	}
 
-	public Attendance(int id, ClassMaster classMaster,
-			SchoolInfo schoolInfo, User usersByTeacherId,
-			User usersByStudentId, boolean present) {
+	public Attendance(int id, ClassMaster classMaster, SchoolInfo schoolInfo,
+			User userByTeacherId, User userByStudentId, boolean present) {
 		this.id = id;
 		this.classMaster = classMaster;
 		this.schoolInfo = schoolInfo;
-		this.usersByTeacherId = usersByTeacherId;
-		this.usersByStudentId = usersByStudentId;
+		this.userByTeacherId = userByTeacherId;
+		this.userByStudentId = userByStudentId;
 		this.present = present;
 	}
 
-	public Attendance(int id, ClassMaster classMaster,
-			SchoolInfo SchoolInfo, User usersByTeacherId,
-			User usersByStudentId, Date date, boolean present,
-			String absentReason) {
+	public Attendance(int id, ClassMaster classMaster, SchoolInfo SchoolInfo,
+			User usersByTeacherId, User userByStudentId, Date date,
+			boolean present, String absentReason) {
 		this.id = id;
 		this.classMaster = classMaster;
 		this.schoolInfo = SchoolInfo;
-		this.usersByTeacherId = usersByTeacherId;
-		this.usersByStudentId = usersByStudentId;
+		this.userByTeacherId = usersByTeacherId;
+		this.userByStudentId = userByStudentId;
 		this.date = date;
 		this.present = present;
 		this.absentReason = absentReason;
@@ -95,21 +94,21 @@ public class Attendance implements java.io.Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "teacher_id", nullable = false)
 	public User getUsersByTeacherId() {
-		return this.usersByTeacherId;
+		return this.userByTeacherId;
 	}
 
-	public void setUsersByTeacherId(User usersByTeacherId) {
-		this.usersByTeacherId = usersByTeacherId;
+	public void setUserByTeacherId(User userByTeacherId) {
+		this.userByTeacherId = userByTeacherId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "student_id", nullable = false)
-	public User getUsersByStudentId() {
-		return this.usersByStudentId;
+	public User getUserByStudentId() {
+		return this.userByStudentId;
 	}
 
-	public void setUsersByStudentId(User usersByStudentId) {
-		this.usersByStudentId = usersByStudentId;
+	public void setUserByStudentId(User userByStudentId) {
+		this.userByStudentId = userByStudentId;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -140,4 +139,14 @@ public class Attendance implements java.io.Serializable {
 		this.absentReason = absentReason;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Attendance) {
+			Attendance attendance = (Attendance) obj;
+			return attendance.getUserByStudentId().getUserId()
+					.equals(this.userByStudentId.getUserId())
+					&& attendance.getDate().equals(this.date);
+		}
+		return false;
+	}
 }

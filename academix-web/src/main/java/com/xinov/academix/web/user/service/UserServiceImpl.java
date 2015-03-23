@@ -1,8 +1,11 @@
 package com.xinov.academix.web.user.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.xinov.academix.core.model.ClassMaster;
 import com.xinov.academix.core.model.User;
 import com.xinov.academix.web.user.repository.UserRepository;
 
@@ -14,6 +17,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User get(String userId, String password) {
 		return userRepository.get(userId, password);
+	}
+
+	@Override
+	public List<ClassMaster> getAllClassesInSchool(int schoolId) {
+		return userRepository.getAllClassesInSchool(schoolId);
 	}
 
 }

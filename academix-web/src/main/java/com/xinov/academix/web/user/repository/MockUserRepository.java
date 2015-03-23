@@ -20,7 +20,7 @@ public class MockUserRepository implements UserRepository {
 	private List<User> users;
 	
 	private SchoolInfo schoolInfo = new SchoolInfo(1, "ABC School", "___________", "022-34232321", "support@abc.com");
-	private ClassMaster classMaster = new ClassMaster(1, schoolInfo, "Class 3C");
+	private List<ClassMaster> classMasters = Arrays.asList(new ClassMaster(1, schoolInfo, "Class 3C"));
 	private List<Role> roles = Arrays.asList(new Role(1, "TEACHER"), new Role(2, "STUDENT"));
 	
 	public MockUserRepository(){
@@ -64,7 +64,7 @@ public class MockUserRepository implements UserRepository {
 	private User createStudent(String userId, SchoolInfo schoolInfo, String name) {
 		User student = new User(userId, schoolInfo, userId, name, "", "", "");
 		student.setUserRoles(new HashSet<UserRole>(Arrays.asList(new UserRole(Integer.parseInt(""+userId.charAt(userId.length()-1)), roles.get(1), student))));
-		student.setStudentInfos(new HashSet<StudentInfo>(Arrays.asList(new StudentInfo(Integer.parseInt(""+userId.charAt(userId.length()-1)), classMaster, student, ""+userId.charAt(userId.length()-1)))));
+		student.setStudentInfos(new HashSet<StudentInfo>(Arrays.asList(new StudentInfo(Integer.parseInt(""+userId.charAt(userId.length()-1)), classMasters.get(0), student, ""+userId.charAt(userId.length()-1)))));
 		
 		return student;
 	}
@@ -77,6 +77,16 @@ public class MockUserRepository implements UserRepository {
 			}
 		}
 		return null;
+	}
+	
+	public List<ClassMaster> getAllClassesInSchool(int schoolId){
+		List<ClassMaster> result = new ArrayList<ClassMaster>();
+		for (ClassMaster classMaster : classMasters) {
+			if (classMaster.getSchoolInfo().getId() == schoolId) {
+				result.add(classMaster);
+			}
+		}
+		return result;
 	}
 
 }

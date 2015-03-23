@@ -1,5 +1,7 @@
 package com.xinov.academix.web.login.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,8 +30,10 @@ public class LoginController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String submitLogin(@ModelAttribute User user){
-		if(userService.get(user.getUserId(), user.getPassword()) != null){
+	public String submitLogin(@ModelAttribute("user") User user, HttpSession session){
+		user = userService.get(user.getUserId(), user.getPassword());
+		if(user != null){
+			session.setAttribute("user", user);
 			return "home";
 		}else{
 			return "login";
