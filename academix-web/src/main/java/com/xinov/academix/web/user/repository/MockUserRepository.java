@@ -89,4 +89,34 @@ public class MockUserRepository implements UserRepository {
 		return result;
 	}
 
+	@Override
+	public List<User> listStudents(int classId) {
+		List<User> result = new ArrayList<User>();
+		for(User user : users){
+			if(isStudent(user) && isInClass(user, classId)){
+				result.add(user);
+			}
+		}
+		return result;
+	}
+
+	private boolean isInClass(User user, int classId) {
+		for(StudentInfo studentInfo : user.getStudentInfos()){
+			if(studentInfo.getClassMaster().getId() == classId){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isStudent(User user) {
+		for(UserRole userRole : user.getUserRoles()){
+			if(userRole.getRole().getTitle().equalsIgnoreCase("STUDENT")){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	
 }

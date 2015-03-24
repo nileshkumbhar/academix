@@ -10,4 +10,6 @@ public interface UserRepository {
 	User get(String userId, String password);
 	
 	List<ClassMaster> getAllClassesInSchool(int schoolId);
+
+	List<User> listStudents(int classId);
 }

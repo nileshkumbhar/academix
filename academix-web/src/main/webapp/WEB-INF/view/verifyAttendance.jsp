@@ -12,12 +12,47 @@
 <div class="row">
 	<div class="col-xs-3">
 		<form:form id="attendanceForm" method="POST" action="verifyAttendance"
-			modelAttribute="classes" novalidate="novalidate">
+			modelAttribute="classes" novalidate="novalidate" class="dropdown">
 			<div class="form-group">
-				<label for="username" class="control-label">Username</label>
-				<form:select path="class" items="${classes}" itemLabel="title" itemValue="id" />
-				<button type="submit" class="btn-primary"></button>
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button"
+						id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						Class <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu"
+						aria-labelledby="dropdownMenu1">
+						<c:forEach items="${classes}" var="class">
+							<li role="presentation"><a role="menuitem" tabindex="-1"
+								href="#" onclick="loadAttendanceSheet('${class.id}')">${class.title}</a></li>
+						</c:forEach>
+					</ul>
+				</div>
+				<div id="attendanceSheet">
+				
+				</div>
 			</div>
 		</form:form>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#attendanceSheet").hide();
+	});
+	
+	function loadAttendanceSheet(classId){
+		alert(classId);
+		$.ajax({
+			url : "loadAttendanceSheet",
+			data : {
+				classId : classId
+			},
+			method : "post",
+			success : function(data) {
+				$("#attendanceSheet").show();
+				$("#attendanceSheet")
+						.html("<strong>" + data + "</strong>");
+			}
+		});
+	};
+</script>

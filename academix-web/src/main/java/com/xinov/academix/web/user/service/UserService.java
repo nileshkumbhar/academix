@@ -10,4 +10,6 @@ public interface UserService {
 	User get(String userId, String password);
 	
 	List<ClassMaster> getAllClassesInSchool(int schoolId);
+	
+	List<User> getStudentsInClass(int classId);
 }

@@ -24,4 +24,9 @@ public class UserServiceImpl implements UserService {
 		return userRepository.getAllClassesInSchool(schoolId);
 	}
 
+	@Override
+	public List<User> getStudentsInClass(int classId) {
+		return userRepository.listStudents(classId);
+	}
+
 }
