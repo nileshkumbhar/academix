@@ -1,6 +1,7 @@
 package com.xinov.academix.web.attendance.controller;
 
-import java.util.List;
+import java.util.Date;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xinov.academix.core.model.Attendance;
+import com.xinov.academix.core.model.ClassMaster;
 import com.xinov.academix.core.model.User;
 import com.xinov.academix.web.attendance.service.AttendanceService;
 import com.xinov.academix.web.user.service.UserService;
@@ -30,7 +33,15 @@ public class AttendanceController {
 	}
 	
 	@RequestMapping(value="loadAttendanceSheet", method=RequestMethod.POST)
-	public @ResponseBody List<User> loadAttendanceSheet(@RequestParam("classId") int classId){
-		return userService.getStudentsInClass(classId);
+	public @ResponseBody Set<Attendance> loadAttendanceSheet(@RequestParam("classId") int classId, HttpSession session){
+		User teacher = userService.get(((User)session.getAttribute("user")).getUserId(), ((User)session.getAttribute("user")).getPassword());
+		
+		ClassMaster currentClassMaster = null;
+		for(ClassMaster classMaster : userService.getAllClassesInSchool(teacher.getSchoolInfo().getId())){
+			if(classId == classMaster.getId()){
+				currentClassMaster = classMaster;
+			}
+		}
+		return attendanceService.load(currentClassMaster, teacher, new Date());
 	}
 }
