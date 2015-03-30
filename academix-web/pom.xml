@@ -38,6 +38,12 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>com.xinov.academix</groupId>
+			<artifactId>academix-attendance-api</artifactId>
+			<version>${academix.version}</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>

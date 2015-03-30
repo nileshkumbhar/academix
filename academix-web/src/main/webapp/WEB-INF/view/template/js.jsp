@@ -16,3 +16,9 @@
 
 <!-- Custom Theme JavaScript -->
 <script type="text/javascript" src="resources/js/sb-admin-2.js"></script>
+
+<script type="text/javascript" src="resources/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="resources/js/dataTables.bootstrap.js" ></script>
+
+
+

@@ -30,7 +30,7 @@ public class User implements Serializable {
 	private StudentInfo studentInfo;
 	
 	private Status status;
-
+	
 	public String getUserId() {
 		return userId;
 	}

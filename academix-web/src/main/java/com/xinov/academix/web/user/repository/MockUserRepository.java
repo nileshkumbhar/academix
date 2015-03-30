@@ -7,12 +7,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.xinov.academix.core.api.model.ClassMaster;
-import com.xinov.academix.core.api.model.Role;
-import com.xinov.academix.core.api.model.SchoolInfo;
-import com.xinov.academix.core.api.model.StudentInfo;
-import com.xinov.academix.core.api.model.User;
-import com.xinov.academix.core.api.model.UserRole;
+import com.xinov.academix.core.api.domain.ClassMaster;
+import com.xinov.academix.core.api.domain.Role;
+import com.xinov.academix.core.api.domain.SchoolInfo;
+import com.xinov.academix.core.api.domain.StudentInfo;
+import com.xinov.academix.core.api.domain.User;
 
 @Repository
 public class MockUserRepository implements UserRepository {
@@ -20,14 +19,20 @@ public class MockUserRepository implements UserRepository {
 	private List<User> users;
 	
 	private SchoolInfo schoolInfo = new SchoolInfo(1, "ABC School", "___________", "022-34232321", "support@abc.com");
-	private List<ClassMaster> classMasters = Arrays.asList(new ClassMaster(1, schoolInfo, "Class 3C"));
+	private List<ClassMaster> classMasters = Arrays.asList(new ClassMaster(1, "Class 3C", schoolInfo));
 	private List<Role> roles = Arrays.asList(new Role(1, "TEACHER"), new Role(2, "STUDENT"));
 	
 	public MockUserRepository(){
 		users = new ArrayList<User>();
 		
-		User teacher1 = new User("teacher1", schoolInfo, "teacher1", "Thomas Francis", "              ", "9930441501", "th.fr@abc.com");
-		teacher1.setUserRoles(new HashSet<UserRole>(Arrays.asList(new UserRole(31, roles.get(0), teacher1))));
+		User teacher1 = new User();
+		teacher1.setUserId("teacher1");
+		teacher1.setPassword("teacher1");
+		teacher1.setSchoolInfo(schoolInfo);
+		teacher1.setName("Thomas Francis");
+		teacher1.setContactNo("9930441501");
+		teacher1.setEmailId("th.fr@abc.com");
+		teacher1.setRoles(new HashSet<Role>(Arrays.asList(roles.get(0))));
 		
 		
 		users.add(teacher1);
@@ -62,9 +67,12 @@ public class MockUserRepository implements UserRepository {
 	}
 
 	private User createStudent(String userId, SchoolInfo schoolInfo, String name) {
-		User student = new User(userId, schoolInfo, userId, name, "", "", "");
-		student.setUserRoles(new HashSet<UserRole>(Arrays.asList(new UserRole(Integer.parseInt(""+userId.charAt(userId.length()-1)), roles.get(1), student))));
-		student.setStudentInfos(new HashSet<StudentInfo>(Arrays.asList(new StudentInfo(Integer.parseInt(""+userId.charAt(userId.length()-1)), classMasters.get(0), student, ""+userId.charAt(userId.length()-1)))));
+		User student = new User();
+		student.setUserId(userId);
+		student.setSchoolInfo(schoolInfo);
+		student.setName(name);
+		student.setRoles(new HashSet<Role>(Arrays.asList(roles.get(1))));
+		student.setStudentInfo(new StudentInfo(Integer.parseInt(""+userId.charAt(userId.length()-1)), ""+userId.charAt(userId.length()-1), classMasters.get(0)));
 		
 		return student;
 	}
@@ -101,17 +109,12 @@ public class MockUserRepository implements UserRepository {
 	}
 
 	private boolean isInClass(User user, int classId) {
-		for(StudentInfo studentInfo : user.getStudentInfos()){
-			if(studentInfo.getClassMaster().getId() == classId){
-				return true;
-			}
-		}
-		return false;
+		return (isStudent(user) && user.getStudentInfo() != null && user.getStudentInfo().getClassMaster().getId() == classId);
 	}
 
 	private boolean isStudent(User user) {
-		for(UserRole userRole : user.getUserRoles()){
-			if(userRole.getRole().getTitle().equalsIgnoreCase("STUDENT")){
+		for(Role role : user.getRoles()){
+			if(role.getTitle().equalsIgnoreCase("STUDENT")){
 				return true;
 			}
 		}

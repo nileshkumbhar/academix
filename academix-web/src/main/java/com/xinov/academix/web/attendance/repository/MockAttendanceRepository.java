@@ -8,9 +8,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.xinov.academix.core.api.model.Attendance;
-import com.xinov.academix.core.api.model.ClassMaster;
-import com.xinov.academix.core.api.model.User;
+import com.xinov.academix.attendance.api.domain.Attendance;
+import com.xinov.academix.core.api.domain.ClassMaster;
+import com.xinov.academix.core.api.domain.User;
 import com.xinov.academix.web.user.repository.UserRepository;
 
 @Repository
@@ -44,7 +44,7 @@ public class MockAttendanceRepository implements AttendanceRepository {
 		Set<Attendance> result = new HashSet<Attendance>();
 		List<User> students = userRepository.listStudents(classMaster.getId());
 		for(int count = 0 ; count < students.size(); count++){
-			result.add(new Attendance(count, classMaster, classMaster.getSchoolInfo(), teacher, students.get(0), date, true, null));
+			result.add(new Attendance(count, classMaster.getSchoolInfo(), date, classMaster, teacher, students.get(count), true, null));
 		}
 		return result;
 	}

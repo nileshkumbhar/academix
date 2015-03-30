@@ -3,9 +3,9 @@ package com.xinov.academix.web.attendance.service;
 import java.util.Date;
 import java.util.Set;
 
-import com.xinov.academix.core.api.model.Attendance;
-import com.xinov.academix.core.api.model.ClassMaster;
-import com.xinov.academix.core.api.model.User;
+import com.xinov.academix.attendance.api.domain.Attendance;
+import com.xinov.academix.core.api.domain.ClassMaster;
+import com.xinov.academix.core.api.domain.User;
 
 public interface AttendanceService {
 
