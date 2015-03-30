@@ -7,12 +7,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.xinov.academix.core.model.ClassMaster;
-import com.xinov.academix.core.model.Role;
-import com.xinov.academix.core.model.SchoolInfo;
-import com.xinov.academix.core.model.StudentInfo;
-import com.xinov.academix.core.model.User;
-import com.xinov.academix.core.model.UserRole;
+import com.xinov.academix.core.api.model.ClassMaster;
+import com.xinov.academix.core.api.model.Role;
+import com.xinov.academix.core.api.model.SchoolInfo;
+import com.xinov.academix.core.api.model.StudentInfo;
+import com.xinov.academix.core.api.model.User;
+import com.xinov.academix.core.api.model.UserRole;
 
 @Repository
 public class MockUserRepository implements UserRepository {

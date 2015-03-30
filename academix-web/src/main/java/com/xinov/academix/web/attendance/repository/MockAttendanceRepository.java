@@ -8,9 +8,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.xinov.academix.core.model.Attendance;
-import com.xinov.academix.core.model.ClassMaster;
-import com.xinov.academix.core.model.User;
+import com.xinov.academix.core.api.model.Attendance;
+import com.xinov.academix.core.api.model.ClassMaster;
+import com.xinov.academix.core.api.model.User;
 import com.xinov.academix.web.user.repository.UserRepository;
 
 @Repository

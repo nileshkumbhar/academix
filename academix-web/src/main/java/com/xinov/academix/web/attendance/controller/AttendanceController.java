@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xinov.academix.core.model.Attendance;
-import com.xinov.academix.core.model.ClassMaster;
-import com.xinov.academix.core.model.User;
+import com.xinov.academix.core.api.model.Attendance;
+import com.xinov.academix.core.api.model.ClassMaster;
+import com.xinov.academix.core.api.model.User;
 import com.xinov.academix.web.attendance.service.AttendanceService;
 import com.xinov.academix.web.user.service.UserService;
 

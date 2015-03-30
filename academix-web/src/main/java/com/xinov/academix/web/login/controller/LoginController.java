@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.xinov.academix.core.model.User;
+import com.xinov.academix.core.api.model.User;
 import com.xinov.academix.web.user.service.UserService;
 
 @Controller

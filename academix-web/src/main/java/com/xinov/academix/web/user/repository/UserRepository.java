@@ -2,8 +2,8 @@ package com.xinov.academix.web.user.repository;
 
 import java.util.List;
 
-import com.xinov.academix.core.model.ClassMaster;
-import com.xinov.academix.core.model.User;
+import com.xinov.academix.core.api.model.ClassMaster;
+import com.xinov.academix.core.api.model.User;
 
 public interface UserRepository {
 
