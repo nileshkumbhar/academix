@@ -72,7 +72,7 @@ public class MockUserRepository implements UserRepository {
 		student.setSchoolInfo(schoolInfo);
 		student.setName(name);
 		student.setRoles(new HashSet<Role>(Arrays.asList(roles.get(1))));
-		student.setStudentInfo(new StudentInfo(Integer.parseInt(""+userId.charAt(userId.length()-1)), ""+userId.charAt(userId.length()-1), classMasters.get(0)));
+		student.setStudentInfo(new StudentInfo(Integer.parseInt(""+userId.substring(7)), ""+userId.substring(7), classMasters.get(0)));
 		
 		return student;
 	}

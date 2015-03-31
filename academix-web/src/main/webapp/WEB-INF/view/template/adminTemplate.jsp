@@ -40,6 +40,9 @@
     <link href='resources/css/footer.css' rel="stylesheet" media="screen">
     
     <link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.css">
+    
+	<!-- Bootstrap switch -->    
+	<link href="resources/css/bootstrap-switch.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

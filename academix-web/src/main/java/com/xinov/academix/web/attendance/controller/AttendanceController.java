@@ -32,7 +32,7 @@ public class AttendanceController {
 		modelMap.addAttribute("classes", userService.getAllClassesInSchool(user.getSchoolInfo().getId()));
 	}
 	
-	@RequestMapping(value="loadAttendanceSheet", method=RequestMethod.POST)
+	@RequestMapping(value="loadAttendanceSheet", method=RequestMethod.GET)
 	public @ResponseBody Set<Attendance> loadAttendanceSheet(@RequestParam("classId") int classId, HttpSession session){
 		User teacher = userService.get(((User)session.getAttribute("user")).getUserId(), ((User)session.getAttribute("user")).getPassword());
 		

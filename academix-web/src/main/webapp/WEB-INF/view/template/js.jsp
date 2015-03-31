@@ -21,4 +21,7 @@
 <script type="text/javascript" src="resources/js/dataTables.bootstrap.js" ></script>
 
 
+<script type="text/javascript" src="resources/js/bootstrap-switch.min.js"></script>
+
+
 
