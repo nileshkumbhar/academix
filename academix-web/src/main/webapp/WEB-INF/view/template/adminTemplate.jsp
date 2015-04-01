@@ -43,6 +43,9 @@
     
 	<!-- Bootstrap switch -->    
 	<link href="resources/css/bootstrap-switch.css" rel="stylesheet">
+	
+	<!-- Bootstrap Datepicker -->
+	<link href="resources/css/bootstrap-datepicker3.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

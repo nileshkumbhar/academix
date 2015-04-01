@@ -25,7 +25,7 @@
 					Attendance<span class="pull-right glyphicon glyphicon-chevron-right"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="verifyAttendance"><span class="glyphicon glyphicon-ok"></span>&nbsp;Verify</a></li>
-					<li><a href="flot.html"><span class="glyphicon glyphicon-stats"></span>&nbsp;Report</a></li>
+					<li><a href="attendanceReports"><span class="glyphicon glyphicon-stats"></span>&nbsp;Reports</a></li>
 					<li><a href="flot.html"><span class="glyphicon glyphicon-edit"></span>&nbsp;Leave Applications</a></li>
 				</ul> 
 				<!-- /.nav-second-level -->
