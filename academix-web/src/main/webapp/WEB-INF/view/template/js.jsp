@@ -20,8 +20,9 @@
 <script type="text/javascript" src="resources/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="resources/js/dataTables.bootstrap.js" ></script>
 
-
 <script type="text/javascript" src="resources/js/bootstrap-switch.min.js"></script>
+
+<script type="text/javascript" src="resources/js/bootstrap-datepicker.min.js"></script>
 
 
 
