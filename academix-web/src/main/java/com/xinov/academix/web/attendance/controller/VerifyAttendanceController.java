@@ -20,7 +20,7 @@ import com.xinov.academix.web.attendance.service.AttendanceService;
 import com.xinov.academix.web.user.service.UserService;
 
 @Controller
-public class AttendanceController {
+public class VerifyAttendanceController {
 
 	private @Autowired AttendanceService attendanceService;
 	

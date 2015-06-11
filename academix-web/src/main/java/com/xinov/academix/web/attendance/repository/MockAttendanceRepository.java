@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,12 +30,22 @@ public class MockAttendanceRepository implements AttendanceRepository {
 	public Set<Attendance> get(ClassMaster classMaster, Date fromDate,
 			Date toDate) {
 		Set<Attendance> result = new HashSet<Attendance>();
-		for (Attendance attendance : attendanceData) {
+		/*for (Attendance attendance : attendanceData) {
 			if (attendance.getClassMaster().getId() == classMaster.getId()
 					&& attendance.getDate().before(toDate)
 					&& attendance.getDate().after(fromDate)) {
 				result.add(attendance);
 			}
+		}*/
+		List<User> students = userRepository.listStudents(classMaster.getId());
+		User teacher = userRepository.get("teacher1", "teacher1");
+		Date currentDate = fromDate;
+		while(currentDate.before(toDate)){
+			for(int count = 0 ; count < students.size(); count++){
+				result.add(new Attendance(count, classMaster.getSchoolInfo(), currentDate, classMaster, teacher, students.get(count), true, null));
+				
+			}
+			currentDate = DateUtils.addDays(currentDate, 1);
 		}
 		return result;
 	}

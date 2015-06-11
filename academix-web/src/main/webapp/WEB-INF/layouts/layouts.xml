@@ -29,4 +29,9 @@
 		<put-attribute name="body" value="/WEB-INF/view/verifyAttendance.jsp" />
 	</definition>
 	
+	<definition name="attendanceReports" extends="AdminTemplate">
+		<put-attribute name="title" value="AcademiX-Attendance" />
+		<put-attribute name="body" value="/WEB-INF/view/attendanceReports.jsp" />
+	</definition>
+	
 </tiles-definitions>
