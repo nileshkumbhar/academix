@@ -1,5 +1,6 @@
 package com.xinov.academix.web.attendance.repository;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -42,7 +43,8 @@ public class MockAttendanceRepository implements AttendanceRepository {
 		Date currentDate = fromDate;
 		while(currentDate.before(toDate)){
 			for(int count = 0 ; count < students.size(); count++){
-				result.add(new Attendance(count, classMaster.getSchoolInfo(), currentDate, classMaster, teacher, students.get(count), true, null));
+				boolean isPresent = (Integer.parseInt(students.get(count).getStudentInfo().getRollNumber()) + Integer.parseInt(new SimpleDateFormat("dd").format(currentDate))) % 10 != 0;
+				result.add(new Attendance(count, classMaster.getSchoolInfo(), currentDate, classMaster, teacher, students.get(count), isPresent, null));
 				
 			}
 			currentDate = DateUtils.addDays(currentDate, 1);
