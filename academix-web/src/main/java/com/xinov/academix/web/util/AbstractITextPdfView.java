@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.view.AbstractView;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
@@ -53,7 +55,10 @@ public abstract class AbstractITextPdfView extends AbstractView {
 	}
 
 	protected Document newDocument() {
-		return new Document(PageSize.A4);
+		Rectangle rectangle = PageSize.A4.rotate();
+		rectangle.setBorder(5);
+		rectangle.setBorderColor(BaseColor.ORANGE);
+		return new Document(rectangle);
 	}
 
 	protected PdfWriter newWriter(Document document, OutputStream os)

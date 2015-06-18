@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,13 +19,17 @@ import org.apache.commons.lang.time.DateUtils;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.xinov.academix.attendance.api.domain.Attendance;
 import com.xinov.academix.core.api.domain.User;
@@ -57,7 +60,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 			}
 		});
 
-		
+		writer.setPageEvent(new Watermark());
 		
 		Date firstDate = attendances.get(0).getDate();
 		Date lastDate = attendances.get(attendances.size()-1).getDate();
@@ -76,7 +79,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 			}
 		});*/
 
-		doc.setPageSize(PageSize.A4.rotate());
+		
 		doc.addHeader("ABC School", "Class 3C");
 		doc.add(new Paragraph("Specimen attendance data"));
 		
@@ -147,5 +150,16 @@ public class PDFBuilder extends AbstractITextPdfView {
 		}
 		return students;
 	}
+	
+	public class Watermark extends PdfPageEventHelper {
+		 
+        protected Phrase watermark = new Phrase("SPECIMEN", new Font(FontFamily.HELVETICA, 70, Font.NORMAL, BaseColor.LIGHT_GRAY));
+ 
+        @Override
+        public void onEndPage(PdfWriter writer, Document document) {
+            PdfContentByte canvas = writer.getDirectContentUnder();
+            ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, watermark, 421, 298, 45);
+        }
+    }
 
 }
