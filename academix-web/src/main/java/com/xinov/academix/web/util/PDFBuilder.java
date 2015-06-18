@@ -76,7 +76,6 @@ public class PDFBuilder extends AbstractITextPdfView {
 			}
 		});*/
 
-		doc.setPageSize(PageSize.A4.rotate());
 		doc.addHeader("ABC School", "Class 3C");
 		doc.add(new Paragraph("Specimen attendance data"));
 		
