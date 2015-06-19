@@ -79,7 +79,6 @@ public class PDFBuilder extends AbstractITextPdfView {
 			}
 		});*/
 
-		
 		doc.addHeader("ABC School", "Class 3C");
 		doc.add(new Paragraph("Specimen attendance data"));
 		
