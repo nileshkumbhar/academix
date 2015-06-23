@@ -22,11 +22,15 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.Font.FontStyle;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.TabStop.Alignment;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfGState;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
@@ -80,10 +84,25 @@ public class PDFBuilder extends AbstractITextPdfView {
 		});*/
 
 		doc.addHeader("ABC School", "Class 3C");
-		doc.add(new Paragraph("Specimen attendance data"));
 		
 		long diffInMillies = lastDate.getTime() - firstDate.getTime();
 		int numberOfDays = (int)TimeUnit.DAYS.convert(diffInMillies,TimeUnit.MILLISECONDS);
+		
+		Font headerFont = FontFactory.getFont(FontFactory.HELVETICA);
+		headerFont.setColor(BaseColor.BLACK);
+		headerFont.setSize(14);
+		headerFont.setStyle(FontStyle.BOLD.getValue());
+		
+		
+		Paragraph paragraph = new Paragraph();
+		paragraph.setAlignment(Element.ALIGN_CENTER);
+		paragraph.setSpacingAfter(50);
+		
+		paragraph.add(Image.getInstance(ClassLoader.getSystemResource("school_logo.png")));
+		paragraph.add(new Phrase("SIES School, Nerul", headerFont));
+		
+		
+		doc.add(paragraph);
 		
 		PdfPTable table = new PdfPTable(numberOfDays + 3);
 		table.setWidthPercentage(100.0f);
@@ -100,12 +119,12 @@ public class PDFBuilder extends AbstractITextPdfView {
 
 		// define font for table header row
 		Font font = FontFactory.getFont(FontFactory.HELVETICA);
-		font.setColor(BaseColor.WHITE);
 
 		// define table header cell
 		PdfPCell cell = new PdfPCell();
-		cell.setBackgroundColor(BaseColor.BLUE);
-		cell.setPadding(5);
+		cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+		cell.setPaddingBottom(10);
+		cell.setPaddingTop(10);
 
 		// write table header
 		cell.setPhrase(new Phrase("Roll No.", font));
@@ -114,23 +133,35 @@ public class PDFBuilder extends AbstractITextPdfView {
 		cell.setPhrase(new Phrase("Name", font));
 		table.addCell(cell);
 
-		DateFormat dateFormat = new SimpleDateFormat("dd MM");
+		DateFormat dateFormat = new SimpleDateFormat("dd");
 		for(int i = 0; i <= numberOfDays ; i++){
 			cell.setPhrase(new Phrase(dateFormat.format(DateUtils.addDays(firstDate, i)), font));
 			table.addCell(cell);
 		}
 		
-
+		int count = 1;
 		// write table row data
+		PdfPCell dataCell = new PdfPCell();
 		for(User student : getStudents(attendances)){
-			table.addCell(student.getStudentInfo().getRollNumber());
-			table.addCell(student.getName());
+			if(count % 2 == 0){
+				dataCell.setBackgroundColor(new BaseColor(245, 245, 245));
+			} else {
+				dataCell.setBackgroundColor(BaseColor.WHITE);
+			}
+			
+			dataCell.setPhrase(new Phrase(student.getStudentInfo().getRollNumber(), new Font(FontFamily.HELVETICA, 11)));
+			table.addCell(dataCell);
+			
+			dataCell.setPhrase(new Phrase(student.getName(), new Font(FontFamily.HELVETICA, 11)));
+			table.addCell(dataCell);
 			
 			for (Attendance attendance : attendances) {
 				if(attendance.getStudent().equals(student)){
-					table.addCell(attendance.isPresent() ? "P" : "A");
+					dataCell.setPhrase(new Phrase(attendance.isPresent() ? "P" : "A", new Font(FontFamily.HELVETICA, 11)));
+					table.addCell(dataCell);
 				}
 			}
+			count++;
 		}
 		doc.add(table);
 	}
@@ -152,12 +183,15 @@ public class PDFBuilder extends AbstractITextPdfView {
 	
 	public class Watermark extends PdfPageEventHelper {
 		 
-        protected Phrase watermark = new Phrase("SPECIMEN", new Font(FontFamily.HELVETICA, 70, Font.NORMAL, BaseColor.LIGHT_GRAY));
+        protected Phrase watermark = new Phrase("SPECIMEN", new Font(FontFamily.HELVETICA, 70, Font.NORMAL, BaseColor.DARK_GRAY));
  
         @Override
         public void onEndPage(PdfWriter writer, Document document) {
-            PdfContentByte canvas = writer.getDirectContentUnder();
-            ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, watermark, 421, 298, 45);
+            PdfContentByte canvas = writer.getDirectContent();
+            PdfGState state = new PdfGState();
+            state.setFillOpacity(0.3f);
+            canvas.setGState(state);
+            ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, watermark, 625, 425, 40);
         }
     }
 

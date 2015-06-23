@@ -55,10 +55,7 @@ public abstract class AbstractITextPdfView extends AbstractView {
 	}
 
 	protected Document newDocument() {
-		Rectangle rectangle = PageSize.A4.rotate();
-		rectangle.setBorder(5);
-		rectangle.setBorderColor(BaseColor.ORANGE);
-		return new Document(rectangle);
+		return new Document(PageSize.LEDGER);
 	}
 
 	protected PdfWriter newWriter(Document document, OutputStream os)
