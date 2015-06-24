@@ -27,7 +27,6 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.TabStop.Alignment;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfGState;
@@ -98,7 +97,13 @@ public class PDFBuilder extends AbstractITextPdfView {
 		paragraph.setAlignment(Element.ALIGN_CENTER);
 		paragraph.setSpacingAfter(50);
 		
-		paragraph.add(Image.getInstance(ClassLoader.getSystemResource("school_logo.png")));
+		String imgPath = "/resources/images/school_logo.png";
+	    String absoluteImgPath = getServletContext().getRealPath(imgPath);
+		
+	    Image image = Image.getInstance(absoluteImgPath);
+	    image.setAlignment(Element.ALIGN_CENTER);
+	    image.scalePercent(50);
+		paragraph.add(image);
 		paragraph.add(new Phrase("SIES School, Nerul", headerFont));
 		
 		
