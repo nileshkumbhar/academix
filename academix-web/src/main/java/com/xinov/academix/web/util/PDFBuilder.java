@@ -1,5 +1,7 @@
 package com.xinov.academix.web.util;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import org.apache.commons.lang.time.DateUtils;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
@@ -27,6 +30,7 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfGState;
@@ -68,46 +72,13 @@ public class PDFBuilder extends AbstractITextPdfView {
 		Date firstDate = attendances.get(0).getDate();
 		Date lastDate = attendances.get(attendances.size()-1).getDate();
 		
-		/*Collections.sort(attendances, new Comparator<Attendance>() {
-
-			@Override
-			public int compare(Attendance attendance1, Attendance attendance2) {
-				// TODO Auto-generated method stub
-				return Integer.valueOf(
-						attendance1.getStudent().getStudentInfo()
-								.getRollNumber()).compareTo(
-						Integer.valueOf(attendance2.getStudent()
-								.getStudentInfo().getRollNumber()));
-				
-			}
-		});*/
-
 		doc.addHeader("ABC School", "Class 3C");
 		
 		long diffInMillies = lastDate.getTime() - firstDate.getTime();
 		int numberOfDays = (int)TimeUnit.DAYS.convert(diffInMillies,TimeUnit.MILLISECONDS);
 		
-		Font headerFont = FontFactory.getFont(FontFactory.HELVETICA);
-		headerFont.setColor(BaseColor.BLACK);
-		headerFont.setSize(14);
-		headerFont.setStyle(FontStyle.BOLD.getValue());
-		
-		
-		Paragraph paragraph = new Paragraph();
-		paragraph.setAlignment(Element.ALIGN_CENTER);
-		paragraph.setSpacingAfter(50);
-		
-		String imgPath = "/resources/images/school_logo.png";
-	    String absoluteImgPath = getServletContext().getRealPath(imgPath);
-		
-	    Image image = Image.getInstance(absoluteImgPath);
-	    image.setAlignment(Element.ALIGN_CENTER);
-	    image.scalePercent(50);
-		paragraph.add(image);
-		paragraph.add(new Phrase("SIES School, Nerul", headerFont));
-		
-		
-		doc.add(paragraph);
+		PdfPTable headerTable = createHeaderTable(attendances);
+		doc.add(headerTable);
 		
 		PdfPTable table = new PdfPTable(numberOfDays + 3);
 		table.setWidthPercentage(100.0f);
@@ -171,6 +142,67 @@ public class PDFBuilder extends AbstractITextPdfView {
 		doc.add(table);
 	}
 	
+	private PdfPTable createHeaderTable(List<Attendance> attendances) throws DocumentException, MalformedURLException, IOException {
+		PdfPTable headerTable = new PdfPTable(2);
+		headerTable.setWidthPercentage(100.0f);
+		headerTable.setWidths(new float[]{0.5f, 0.5f});
+		
+		Font headerFont = FontFactory.getFont(FontFactory.HELVETICA);
+		headerFont.setColor(BaseColor.BLACK);
+		headerFont.setSize(14);
+		headerFont.setStyle(FontStyle.BOLD.getValue());
+		
+		String imgPath = "/resources/images/school_logo.png";
+	    String absoluteImgPath = getServletContext().getRealPath(imgPath);
+		
+	    Image image = Image.getInstance(absoluteImgPath);
+	    image.setAlignment(Element.ALIGN_RIGHT);
+	    image.scalePercent(50);
+	    
+	    
+	    PdfPCell imageCell = new PdfPCell();
+	    imageCell.setFixedHeight(50);
+	    imageCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+	    imageCell.addElement(image);
+	    imageCell.setPaddingRight(-30f);
+	    imageCell.setBorder(Rectangle.NO_BORDER);
+		headerTable.addCell(imageCell);
+		
+		PdfPCell cell = new PdfPCell();
+		cell.setFixedHeight(50);
+		cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+		cell.setVerticalAlignment(Element.ALIGN_BASELINE);
+		cell.setPaddingLeft(0f);
+		cell.setPaddingTop(15);
+		cell.setBorder(Rectangle.NO_BORDER);
+		cell.addElement(new Phrase("SIES School, Nerul", headerFont));
+		headerTable.addCell(cell);
+		
+		Font defaultFont = new Font(FontFamily.HELVETICA, 13);
+
+		headerTable.addCell(createAlignedCell("Class : " + attendances.get(0).getClassMaster().getTitle(), defaultFont, Element.ALIGN_LEFT));
+		headerTable.addCell(createAlignedCell("Class Teacher: " + attendances.get(0).getTeacher().getName(), defaultFont, Element.ALIGN_RIGHT));
+		headerTable.addCell(createAlignedCell("Month: " + new SimpleDateFormat("MMMM").format(attendances.get(0).getDate()), defaultFont, Element.ALIGN_LEFT));
+		headerTable.addCell(createAlignedCell("Signature: ____________________", defaultFont, Element.ALIGN_RIGHT));
+		headerTable.addCell(createAlignedCell("Year  : " + new SimpleDateFormat("yyyy").format(attendances.get(0).getDate()), defaultFont, Element.ALIGN_LEFT));
+		headerTable.addCell(createAlignedCell("Date: ___________________________", defaultFont, Element.ALIGN_RIGHT));
+		
+		return headerTable;
+	}
+
+	private PdfPCell createAlignedCell(String cellText,
+			Font defaultFont, int alignment) {
+		PdfPCell cell = new PdfPCell();
+		cell.setHorizontalAlignment(alignment);
+		cell.setBorder(Rectangle.NO_BORDER);
+		Paragraph paragraph = new Paragraph(cellText, defaultFont);
+		paragraph.setAlignment(alignment);
+		cell.addElement(paragraph);
+		
+		return cell;
+	}
+	
+
 	private Set<User> getStudents(List<Attendance> attendances){
 		Set<User> students = new TreeSet<User>(new Comparator<User>() {
 
