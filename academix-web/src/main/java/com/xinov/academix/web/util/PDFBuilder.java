@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -67,6 +68,11 @@ public class PDFBuilder extends AbstractITextPdfView {
 			}
 		});
 
+		Map<String, Integer> rollNumberPresentMap = new HashMap<String, Integer>();
+		Map<String, Integer> rollNumberAbsentMap = new HashMap<String, Integer>();
+		Map<Date, Integer> datePresentMap = new HashMap<Date, Integer>();
+		Map<Date, Integer> dateAbsentMap = new HashMap<Date, Integer>();
+		
 		writer.setPageEvent(new Watermark());
 		
 		Date firstDate = attendances.get(0).getDate();
@@ -80,13 +86,13 @@ public class PDFBuilder extends AbstractITextPdfView {
 		PdfPTable headerTable = createHeaderTable(attendances);
 		doc.add(headerTable);
 		
-		PdfPTable table = new PdfPTable(numberOfDays + 3);
+		PdfPTable table = new PdfPTable(numberOfDays + 6);
 		table.setWidthPercentage(100.0f);
-		float [] widths = new float[numberOfDays + 3];
+		float [] widths = new float[numberOfDays + 6];
 		
 		widths[0] = 0.2f;
 		widths[1] = 1f;
-		for(int i = 0; i < numberOfDays ; i++){
+		for(int i = 0; i < numberOfDays + 3 ; i++){
 			widths[i+2] = 0.1f;
 		}
 		
@@ -110,10 +116,28 @@ public class PDFBuilder extends AbstractITextPdfView {
 		table.addCell(cell);
 
 		DateFormat dateFormat = new SimpleDateFormat("dd");
-		for(int i = 0; i <= numberOfDays ; i++){
+		for(int i = 0; i < numberOfDays ; i++){
+			String day = new SimpleDateFormat("EEE").format(DateUtils.addDays(firstDate, i));
+			if(day.equalsIgnoreCase("Sun")){
+				cell.setBackgroundColor(new BaseColor(249, 189, 153));
+			} else {
+				cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+			}
 			cell.setPhrase(new Phrase(dateFormat.format(DateUtils.addDays(firstDate, i)), font));
 			table.addCell(cell);
 		}
+		
+		cell.setBackgroundColor(new BaseColor(232, 239, 247));
+		
+		cell.setPhrase(new Phrase("P.", font));
+		table.addCell(cell);
+		
+		cell.setPhrase(new Phrase("A.", font));
+		table.addCell(cell);
+		
+		cell.setBackgroundColor(new BaseColor(162, 190, 219));
+		cell.setPhrase(new Phrase("T.", font));
+		table.addCell(cell);
 		
 		int count = 1;
 		// write table row data
@@ -131,15 +155,57 @@ public class PDFBuilder extends AbstractITextPdfView {
 			dataCell.setPhrase(new Phrase(student.getName(), new Font(FontFamily.HELVETICA, 11)));
 			table.addCell(dataCell);
 			
+			
 			for (Attendance attendance : attendances) {
+				String day = new SimpleDateFormat("EEE").format(attendance.getDate());
+				if(day.equalsIgnoreCase("Sun")){
+					dataCell.setBackgroundColor(new BaseColor(253, 235, 223));
+				}else {
+					dataCell.setBackgroundColor(BaseColor.WHITE);
+				}
 				if(attendance.getStudent().equals(student)){
-					dataCell.setPhrase(new Phrase(attendance.isPresent() ? "P" : "A", new Font(FontFamily.HELVETICA, 11)));
+					dataCell.setPhrase(new Phrase(day.equalsIgnoreCase("Sun") ? "" : attendance.isPresent() ? "P" : "A", new Font(FontFamily.HELVETICA, 11)));
+					table.addCell(dataCell);
+					
+					if(!day.equalsIgnoreCase("Sun") && attendance.isPresent()) {
+						addAttendanceToRollNoMap(rollNumberPresentMap, attendance);
+						addAttendanceToDateMap(datePresentMap, attendance);
+					} else if(!day.equalsIgnoreCase("Sun") && !attendance.isPresent()){
+						addAttendanceToRollNoMap(rollNumberAbsentMap, attendance);
+						addAttendanceToDateMap(dateAbsentMap, attendance);
+					}
+				}
+				
+				if (rollNumberPresentMap.get(attendance.getStudent()
+						.getStudentInfo().getRollNumber()) != null && rollNumberAbsentMap.get(attendance.getStudent()
+								.getStudentInfo().getRollNumber()) != null
+						&& rollNumberPresentMap.get(attendance.getStudent()
+								.getStudentInfo().getRollNumber()) + rollNumberAbsentMap.get(attendance.getStudent()
+										.getStudentInfo().getRollNumber()) == numberOfDays - 3) {
+					dataCell.setPhrase(new Phrase(rollNumberPresentMap
+							.get(attendance.getStudent().getStudentInfo()
+									.getRollNumber())));
+					table.addCell(dataCell);
+
+					dataCell.setPhrase(new Phrase(rollNumberAbsentMap
+							.get(attendance.getStudent().getStudentInfo()
+									.getRollNumber())));
 					table.addCell(dataCell);
 				}
 			}
 			count++;
 		}
 		doc.add(table);
+	}
+
+	private void addAttendanceToRollNoMap(Map<String, Integer> attendanceMap,
+			Attendance attendance) {
+		attendanceMap.put(attendance.getStudent().getStudentInfo().getRollNumber(), attendanceMap.get(attendance.getStudent().getStudentInfo().getRollNumber()) == null ? 1 : attendanceMap.get(attendance.getStudent().getStudentInfo().getRollNumber()) + 1);
+	}
+	
+	private void addAttendanceToDateMap(Map<Date, Integer> attendanceMap,
+			Attendance attendance) {
+		attendanceMap.put(attendance.getDate(), attendanceMap.get(attendance.getStudent().getStudentInfo().getRollNumber()) == null ? 1 : attendanceMap.get(attendance.getStudent().getStudentInfo().getRollNumber()) + 1);
 	}
 	
 	private PdfPTable createHeaderTable(List<Attendance> attendances) throws DocumentException, MalformedURLException, IOException {
@@ -183,9 +249,9 @@ public class PDFBuilder extends AbstractITextPdfView {
 		headerTable.addCell(createAlignedCell("Class : " + attendances.get(0).getClassMaster().getTitle(), defaultFont, Element.ALIGN_LEFT));
 		headerTable.addCell(createAlignedCell("Class Teacher: " + attendances.get(0).getTeacher().getName(), defaultFont, Element.ALIGN_RIGHT));
 		headerTable.addCell(createAlignedCell("Month: " + new SimpleDateFormat("MMMM").format(attendances.get(0).getDate()), defaultFont, Element.ALIGN_LEFT));
-		headerTable.addCell(createAlignedCell("Signature: ____________________", defaultFont, Element.ALIGN_RIGHT));
+		headerTable.addCell(createAlignedCell("Signature: _________________", defaultFont, Element.ALIGN_RIGHT));
 		headerTable.addCell(createAlignedCell("Year  : " + new SimpleDateFormat("yyyy").format(attendances.get(0).getDate()), defaultFont, Element.ALIGN_LEFT));
-		headerTable.addCell(createAlignedCell("Date: ___________________________", defaultFont, Element.ALIGN_RIGHT));
+		headerTable.addCell(createAlignedCell("Date: _____________________", defaultFont, Element.ALIGN_RIGHT));
 		
 		return headerTable;
 	}
