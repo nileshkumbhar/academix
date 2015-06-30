@@ -86,9 +86,9 @@ public class PDFBuilder extends AbstractITextPdfView {
 		PdfPTable headerTable = createHeaderTable(attendances);
 		doc.add(headerTable);
 		
-		PdfPTable table = new PdfPTable(numberOfDays + 5);
+		PdfPTable table = new PdfPTable(numberOfDays + 6);
 		table.setWidthPercentage(100.0f);
-		float [] widths = new float[numberOfDays + 5];
+		float [] widths = new float[numberOfDays + 6];
 		
 		widths[0] = 0.2f;
 		widths[1] = 1f;
@@ -154,6 +154,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 			
 			dataCell.setPhrase(new Phrase(student.getName(), new Font(FontFamily.HELVETICA, 11)));
 			table.addCell(dataCell);
+			
 			
 			for (Attendance attendance : attendances) {
 				String day = new SimpleDateFormat("EEE").format(attendance.getDate());
