@@ -81,7 +81,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 		doc.addHeader("ABC School", "Class 3C");
 		
 		long diffInMillies = lastDate.getTime() - firstDate.getTime();
-		int numberOfDays = (int)TimeUnit.DAYS.convert(diffInMillies,TimeUnit.MILLISECONDS);
+		int numberOfDays = (int)TimeUnit.DAYS.convert(diffInMillies,TimeUnit.MILLISECONDS) + 1;
 		
 		PdfPTable headerTable = createHeaderTable(attendances);
 		doc.add(headerTable);
@@ -116,7 +116,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 		table.addCell(cell);
 
 		DateFormat dateFormat = new SimpleDateFormat("dd");
-		for(int i = 0; i < numberOfDays ; i++){
+		for(int i = 0; i <= numberOfDays -1 ; i++){
 			String day = new SimpleDateFormat("EEE").format(DateUtils.addDays(firstDate, i));
 			if(day.equalsIgnoreCase("Sun")){
 				cell.setBackgroundColor(new BaseColor(249, 189, 153));
@@ -155,6 +155,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 			dataCell.setPhrase(new Phrase(student.getName(), new Font(FontFamily.HELVETICA, 11)));
 			table.addCell(dataCell);
 			
+			
 			for (Attendance attendance : attendances) {
 				String day = new SimpleDateFormat("EEE").format(attendance.getDate());
 				if(day.equalsIgnoreCase("Sun")){
@@ -163,9 +164,6 @@ public class PDFBuilder extends AbstractITextPdfView {
 					dataCell.setBackgroundColor(BaseColor.WHITE);
 				}
 				if(attendance.getStudent().equals(student)){
-					dataCell.setPhrase(new Phrase(day.equalsIgnoreCase("Sun") ? "" : attendance.isPresent() ? "P" : "A", new Font(FontFamily.HELVETICA, 11)));
-					table.addCell(dataCell);
-					
 					if(!day.equalsIgnoreCase("Sun") && attendance.isPresent()) {
 						addAttendanceToRollNoMap(rollNumberPresentMap, attendance);
 						addAttendanceToDateMap(datePresentMap, attendance);
@@ -173,24 +171,31 @@ public class PDFBuilder extends AbstractITextPdfView {
 						addAttendanceToRollNoMap(rollNumberAbsentMap, attendance);
 						addAttendanceToDateMap(dateAbsentMap, attendance);
 					}
+				
+					dataCell.setPhrase(new Phrase(day.equalsIgnoreCase("Sun") ? "" : attendance.isPresent() ? "P" : "A", new Font(FontFamily.HELVETICA, 11)));
+					table.addCell(dataCell);
 					
-					if (rollNumberPresentMap.get(attendance.getStudent()
-							.getStudentInfo().getRollNumber()) != null && rollNumberAbsentMap.get(attendance.getStudent()
+					if (rollNumberPresentMap.get(student
+							.getStudentInfo().getRollNumber()) != null && rollNumberAbsentMap.get(student
 									.getStudentInfo().getRollNumber()) != null
-							&& rollNumberPresentMap.get(attendance.getStudent()
-									.getStudentInfo().getRollNumber()) + rollNumberAbsentMap.get(attendance.getStudent()
-											.getStudentInfo().getRollNumber()) == numberOfDays - 3) {
-						dataCell.setPhrase(new Phrase(rollNumberPresentMap
-								.get(attendance.getStudent().getStudentInfo()
-										.getRollNumber())));
+							&& rollNumberPresentMap.get(student
+									.getStudentInfo().getRollNumber()) + rollNumberAbsentMap.get(student
+											.getStudentInfo().getRollNumber()) == numberOfDays - 4) {
+						Font totalFont = new Font(FontFamily.HELVETICA, 11);
+						
+						dataCell.setBackgroundColor(new BaseColor(232, 239, 247));
+						dataCell.setPhrase(new Phrase(Integer.toString(rollNumberPresentMap
+								.get(student.getStudentInfo()
+										.getRollNumber())), totalFont));
 						table.addCell(dataCell);
 
-						dataCell.setPhrase(new Phrase(rollNumberAbsentMap
-								.get(attendance.getStudent().getStudentInfo()
-										.getRollNumber())));
+						dataCell.setPhrase(new Phrase(Integer.toString(rollNumberAbsentMap
+								.get(student.getStudentInfo()
+										.getRollNumber())), totalFont));
 						table.addCell(dataCell);
 						
-						dataCell.setPhrase(new Phrase(numberOfDays - 3));
+						dataCell.setBackgroundColor(new BaseColor(162, 190, 219));
+						dataCell.setPhrase(new Phrase(Integer.toString(numberOfDays - 4), totalFont));
 						table.addCell(dataCell);
 					}
 				}

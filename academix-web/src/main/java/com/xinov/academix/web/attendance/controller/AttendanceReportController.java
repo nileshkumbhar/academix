@@ -49,7 +49,7 @@ public class AttendanceReportController {
 		
 		// create some sample data
 		Date startDate = DateUtils.parseDate("01-"+attendanceInputVO.getMonthYear(), new String[]{"dd-MM-yyyy"});
-		Date endDate = DateUtils.addDays(DateUtils.addMonths(startDate, 1),1);
+		Date endDate = DateUtils.addMonths(startDate, 1);
 		Set<Attendance> attendances = attendanceService.load(userService.getAllClassesInSchool(teacher.getSchoolInfo().getId()).get(0), startDate, endDate);
 	
 //		new FileSystemResource(myService.getFileFor(fileName))
