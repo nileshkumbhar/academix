@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
@@ -116,7 +117,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 		table.addCell(cell);
 
 		DateFormat dateFormat = new SimpleDateFormat("dd");
-		for(int i = 0; i <= numberOfDays -1 ; i++){
+		for(int i = 0; i <= numberOfDays - 1 ; i++){
 			String day = new SimpleDateFormat("EEE").format(DateUtils.addDays(firstDate, i));
 			if(day.equalsIgnoreCase("Sun")){
 				cell.setBackgroundColor(new BaseColor(249, 189, 153));
@@ -127,22 +128,21 @@ public class PDFBuilder extends AbstractITextPdfView {
 			table.addCell(cell);
 		}
 		
-		cell.setBackgroundColor(new BaseColor(232, 239, 247));
-		
+		cell.setBackgroundColor(new BaseColor(162, 190, 219));
 		cell.setPhrase(new Phrase("P.", font));
 		table.addCell(cell);
 		
 		cell.setPhrase(new Phrase("A.", font));
 		table.addCell(cell);
 		
-		cell.setBackgroundColor(new BaseColor(162, 190, 219));
 		cell.setPhrase(new Phrase("T.", font));
 		table.addCell(cell);
 		
 		int count = 1;
 		// write table row data
 		PdfPCell dataCell = new PdfPCell();
-		for(User student : getStudents(attendances)){
+		Set<User> students = getStudents(attendances);
+		for(User student : students){
 			if(count % 2 == 0){
 				dataCell.setBackgroundColor(new BaseColor(245, 245, 245));
 			} else {
@@ -163,6 +163,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 				}else {
 					dataCell.setBackgroundColor(BaseColor.WHITE);
 				}
+				
 				if(attendance.getStudent().equals(student)){
 					if(!day.equalsIgnoreCase("Sun") && attendance.isPresent()) {
 						addAttendanceToRollNoMap(rollNumberPresentMap, attendance);
@@ -173,6 +174,9 @@ public class PDFBuilder extends AbstractITextPdfView {
 					}
 				
 					dataCell.setPhrase(new Phrase(day.equalsIgnoreCase("Sun") ? "" : attendance.isPresent() ? "P" : "A", new Font(FontFamily.HELVETICA, 11)));
+					if(dataCell.getPhrase().getContent().equals("A")){
+						dataCell.setBackgroundColor(new BaseColor(255, 228, 227));
+					}
 					table.addCell(dataCell);
 					
 					if (rollNumberPresentMap.get(student
@@ -201,9 +205,94 @@ public class PDFBuilder extends AbstractITextPdfView {
 				}
 				
 			}
+			
 			count++;
 		}
+		addAggregationRows(table, datePresentMap, dateAbsentMap, firstDate, numberOfDays);
 		doc.add(table);
+	}
+
+	private void addAggregationRows(PdfPTable table, Map<Date, Integer> datePresentMap, Map<Date, Integer> dateAbsentMap, Date firstDate, int numberOfDays) {
+		PdfPCell dataCell = new PdfPCell();
+		Font font = new Font(FontFamily.HELVETICA, 11);
+		
+		dataCell.setBackgroundColor(new BaseColor(162, 190, 219));
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);
+		
+		dataCell.setPhrase(new Phrase("PRESENT", font));
+		table.addCell(dataCell);
+		
+		for(int i = 0; i <= numberOfDays - 1; i++){
+			String day = new SimpleDateFormat("EEE").format(DateUtils.addDays(firstDate, i));
+			if(day.equalsIgnoreCase("Sun")){
+				dataCell.setBackgroundColor(new BaseColor(249, 189, 153));
+				dataCell.setPhrase(new Phrase("", font));
+			} else {
+				dataCell.setBackgroundColor(new BaseColor(232, 239, 247));
+				dataCell.setPhrase(new Phrase(datePresentMap.get(DateUtils.addDays(firstDate, i)) == null ? "0" : Integer.toString(datePresentMap.get(DateUtils.addDays(firstDate, i))), font));
+			}
+			table.addCell(dataCell);
+		}
+		
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);
+		
+		dataCell.setBackgroundColor(new BaseColor(162, 190, 219));
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);
+		
+		dataCell.setPhrase(new Phrase("ABSENT", font));
+		table.addCell(dataCell);
+		
+		for(int i = 0; i <= numberOfDays - 1; i++){
+			String day = new SimpleDateFormat("EEE").format(DateUtils.addDays(firstDate, i));
+			if(day.equalsIgnoreCase("Sun")){
+				dataCell.setBackgroundColor(new BaseColor(249, 189, 153));
+				dataCell.setPhrase(new Phrase("", font));
+			} else {
+				dataCell.setBackgroundColor(new BaseColor(232, 239, 247));
+				dataCell.setPhrase(new Phrase(dateAbsentMap.get(DateUtils.addDays(firstDate, i)) == null ? "0" : Integer.toString(dateAbsentMap.get(DateUtils.addDays(firstDate, i))), font));
+			}
+			table.addCell(dataCell);
+		}
+		
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);
+		
+		/*dataCell.setBackgroundColor(new BaseColor(162, 190, 219));
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);
+		
+		dataCell.setPhrase(new Phrase("ABSENT", font));
+		table.addCell(dataCell);
+		
+		for(int i = 0; i <= numberOfDays - 1; i++){
+			String day = new SimpleDateFormat("EEE").format(DateUtils.addDays(firstDate, i));
+			if(day.equalsIgnoreCase("Sun")){
+				dataCell.setBackgroundColor(new BaseColor(249, 189, 153));
+				dataCell.setPhrase(new Phrase("", font));
+			} else {
+				dataCell.setBackgroundColor(new BaseColor(232, 239, 247));
+				dataCell.setPhrase(new Phrase(""+(numberOfDays-4), font));
+			}
+			table.addCell(dataCell);
+		}
+		
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);
+		dataCell.setPhrase(new Phrase("", font));
+		table.addCell(dataCell);*/
 	}
 
 	private void addAttendanceToRollNoMap(Map<String, Integer> attendanceMap,
@@ -213,7 +302,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 	
 	private void addAttendanceToDateMap(Map<Date, Integer> attendanceMap,
 			Attendance attendance) {
-		attendanceMap.put(attendance.getDate(), attendanceMap.get(attendance.getStudent().getStudentInfo().getRollNumber()) == null ? 1 : attendanceMap.get(attendance.getStudent().getStudentInfo().getRollNumber()) + 1);
+		attendanceMap.put(attendance.getDate(), attendanceMap.get(attendance.getDate()) == null ? 1 : attendanceMap.get(attendance.getDate()) + 1);
 	}
 	
 	private PdfPTable createHeaderTable(List<Attendance> attendances) throws DocumentException, MalformedURLException, IOException {
