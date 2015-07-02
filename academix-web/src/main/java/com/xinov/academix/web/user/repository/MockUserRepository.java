@@ -62,8 +62,12 @@ public class MockUserRepository implements UserRepository {
 		users.add(createStudent("student23", schoolInfo, "Pravin Tandel"));
 		users.add(createStudent("student24", schoolInfo, "Madhav Tiwari"));
 		users.add(createStudent("student25", schoolInfo, "P Umashankar"));
-		users.add(createStudent("student26", schoolInfo, "Yuvraj Vichare"));
-		users.add(createStudent("student27", schoolInfo, "Alok Waghmare"));
+		users.add(createStudent("student26", schoolInfo, "Riya Verma"));
+		users.add(createStudent("student27", schoolInfo, "Yuvraj Vichare"));
+		users.add(createStudent("student28", schoolInfo, "Alok Waghmare"));
+		users.add(createStudent("student29", schoolInfo, "Abhijeet Yadav"));
+		users.add(createStudent("student31", schoolInfo, "Vrinda Yadav"));
+		users.add(createStudent("student32", schoolInfo, "Irshaad Zamaadar"));
 	}
 
 	private User createStudent(String userId, SchoolInfo schoolInfo, String name) {

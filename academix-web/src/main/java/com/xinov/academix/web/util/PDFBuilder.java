@@ -1,5 +1,9 @@
 package com.xinov.academix.web.util;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DateFormat;
@@ -20,11 +24,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
+import com.itextpdf.awt.DefaultFontMapper;
+import com.itextpdf.awt.PdfPrinterGraphics2D;
+import com.itextpdf.awt.geom.Rectangle2D;
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.ElementListener;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Font.FontStyle;
@@ -39,6 +54,7 @@ import com.itextpdf.text.pdf.PdfGState;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
+import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.xinov.academix.attendance.api.domain.Attendance;
 import com.xinov.academix.core.api.domain.User;
@@ -149,7 +165,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 				dataCell.setBackgroundColor(BaseColor.WHITE);
 			}
 
-			dataCell.setPhrase(new Phrase(student.getStudentInfo().getRollNumber(), new Font(FontFamily.HELVETICA, 11)));
+			dataCell.setPhrase(new Phrase(student.getStudentInfo().getRollNumber()+".", new Font(FontFamily.HELVETICA, 11)));
 			table.addCell(dataCell);
 			
 			dataCell.setPhrase(new Phrase(student.getName(), new Font(FontFamily.HELVETICA, 11)));
@@ -180,9 +196,18 @@ public class PDFBuilder extends AbstractITextPdfView {
 					table.addCell(dataCell);
 					
 					if (rollNumberPresentMap.get(student
-							.getStudentInfo().getRollNumber()) != null && rollNumberAbsentMap.get(student
-									.getStudentInfo().getRollNumber()) != null
-							&& rollNumberPresentMap.get(student
+							.getStudentInfo().getRollNumber()) == null){
+						rollNumberPresentMap.put(student
+								.getStudentInfo().getRollNumber(), 0);
+					}
+					
+					if (rollNumberAbsentMap.get(student
+							.getStudentInfo().getRollNumber()) == null){
+						rollNumberAbsentMap.put(student
+								.getStudentInfo().getRollNumber(), 0);
+					}
+					
+					if (rollNumberPresentMap.get(student
 									.getStudentInfo().getRollNumber()) + rollNumberAbsentMap.get(student
 											.getStudentInfo().getRollNumber()) == numberOfDays - 4) {
 						Font totalFont = new Font(FontFamily.HELVETICA, 11);
@@ -210,6 +235,43 @@ public class PDFBuilder extends AbstractITextPdfView {
 		}
 		addAggregationRows(table, datePresentMap, dateAbsentMap, firstDate, numberOfDays);
 		doc.add(table);
+		
+		doc.newPage();
+		writeAttendanceGraphByDate(doc, writer, rollNumberAbsentMap, rollNumberPresentMap);
+		
+	}
+
+	private void writeAttendanceGraphByDate(Document doc, PdfWriter writer, Map<String, Integer> rollNumberAbsentMap,
+			Map<String, Integer> rollNumberPresentMap) throws IOException, DocumentException{
+		JFreeChart chart = createAttendanceGraphByDate(rollNumberAbsentMap, rollNumberPresentMap);
+		PdfContentByte cb = writer.getDirectContent();
+        PdfTemplate tp = cb.createTemplate(100, 100);
+        Graphics2D g2 = tp.createGraphics(100, 100, new DefaultFontMapper());
+        java.awt.geom.Rectangle2D r2D = new java.awt.geom.Rectangle2D.Double(0.0D, 0.0D, 100, 100);
+        chart.draw(g2, r2D);
+        g2.dispose();
+        Image chartImage = Image.getInstance(tp);
+        doc.add(new Paragraph(""));
+        doc.add(new Paragraph("Example2: High quality image"));
+        doc.add(chartImage);
+	}
+	
+	private JFreeChart createAttendanceGraphByDate(
+			Map<String, Integer> rollNumberAbsentMap,
+			Map<String, Integer> rollNumberPresentMap) {
+		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+        dataSet.setValue(791, "Population", "1750 AD");
+        dataSet.setValue(978, "Population", "1800 AD");
+        dataSet.setValue(1262, "Population", "1850 AD");
+        dataSet.setValue(1650, "Population", "1900 AD");
+        dataSet.setValue(2519, "Population", "1950 AD");
+        dataSet.setValue(6070, "Population", "2000 AD");
+ 
+        JFreeChart chart = ChartFactory.createBarChart(
+                "World Population growth", "Year", "Population in millions",
+                dataSet, PlotOrientation.VERTICAL, false, true, false);
+ 
+        return chart;
 	}
 
 	private void addAggregationRows(PdfPTable table, Map<Date, Integer> datePresentMap, Map<Date, Integer> dateAbsentMap, Date firstDate, int numberOfDays) {
@@ -268,11 +330,11 @@ public class PDFBuilder extends AbstractITextPdfView {
 		dataCell.setPhrase(new Phrase("", font));
 		table.addCell(dataCell);
 		
-		/*dataCell.setBackgroundColor(new BaseColor(162, 190, 219));
+		dataCell.setBackgroundColor(new BaseColor(162, 190, 219));
 		dataCell.setPhrase(new Phrase("", font));
 		table.addCell(dataCell);
 		
-		dataCell.setPhrase(new Phrase("ABSENT", font));
+		dataCell.setPhrase(new Phrase("TOTAL", font));
 		table.addCell(dataCell);
 		
 		for(int i = 0; i <= numberOfDays - 1; i++){
@@ -281,18 +343,21 @@ public class PDFBuilder extends AbstractITextPdfView {
 				dataCell.setBackgroundColor(new BaseColor(249, 189, 153));
 				dataCell.setPhrase(new Phrase("", font));
 			} else {
-				dataCell.setBackgroundColor(new BaseColor(232, 239, 247));
-				dataCell.setPhrase(new Phrase(""+(numberOfDays-4), font));
+				dataCell.setBackgroundColor(new BaseColor(162, 190, 219));
+				int presentNo = datePresentMap.get(DateUtils.addDays(firstDate, i)) == null ? 0 : datePresentMap.get(DateUtils.addDays(firstDate, i));
+				int absentNo = dateAbsentMap.get(DateUtils.addDays(firstDate, i)) == null ? 0 : dateAbsentMap.get(DateUtils.addDays(firstDate, i));
+				dataCell.setPhrase(new Phrase(""+(presentNo+absentNo), font));
 			}
 			table.addCell(dataCell);
 		}
 		
+		dataCell.setBackgroundColor(new BaseColor(232, 239, 247));
 		dataCell.setPhrase(new Phrase("", font));
 		table.addCell(dataCell);
 		dataCell.setPhrase(new Phrase("", font));
 		table.addCell(dataCell);
 		dataCell.setPhrase(new Phrase("", font));
-		table.addCell(dataCell);*/
+		table.addCell(dataCell);
 	}
 
 	private void addAttendanceToRollNoMap(Map<String, Integer> attendanceMap,
