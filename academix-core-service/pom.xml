@@ -6,7 +6,7 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>academix-core-service</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <name>academix-core-service</name>
   <description>academix-core-service</description>
 </project>
