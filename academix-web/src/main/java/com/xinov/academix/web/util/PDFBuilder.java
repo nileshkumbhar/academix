@@ -230,14 +230,13 @@ public class PDFBuilder extends AbstractITextPdfView {
 				}
 				
 			}
-			
 			count++;
 		}
 		addAggregationRows(table, datePresentMap, dateAbsentMap, firstDate, numberOfDays);
 		doc.add(table);
 		
-		doc.newPage();
-		writeAttendanceGraphByDate(doc, writer, rollNumberAbsentMap, rollNumberPresentMap);
+		/*doc.newPage();
+		writeAttendanceGraphByDate(doc, writer, rollNumberAbsentMap, rollNumberPresentMap);*/
 		
 	}
 
