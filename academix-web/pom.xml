@@ -429,6 +429,7 @@
 						<configuration>
 							<outputDirectory>webapps</outputDirectory>
 							<warName>ROOT</warName>
+							<warName>academix-web</warName>
 						</configuration>
 					</plugin>
 				</plugins>
