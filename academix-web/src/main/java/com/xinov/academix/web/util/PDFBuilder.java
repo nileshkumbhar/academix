@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -209,7 +210,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 					
 					if (rollNumberPresentMap.get(student
 									.getStudentInfo().getRollNumber()) + rollNumberAbsentMap.get(student
-											.getStudentInfo().getRollNumber()) == numberOfDays - 4) {
+											.getStudentInfo().getRollNumber()) == numberOfDays - countHolidays(firstDate, numberOfDays)) {
 						Font totalFont = new Font(FontFamily.HELVETICA, 11);
 						
 						dataCell.setBackgroundColor(new BaseColor(232, 239, 247));
@@ -224,7 +225,7 @@ public class PDFBuilder extends AbstractITextPdfView {
 						table.addCell(dataCell);
 						
 						dataCell.setBackgroundColor(new BaseColor(162, 190, 219));
-						dataCell.setPhrase(new Phrase(Integer.toString(numberOfDays - 4), totalFont));
+						dataCell.setPhrase(new Phrase(Integer.toString(numberOfDays - countHolidays(firstDate, numberOfDays)), totalFont));
 						table.addCell(dataCell);
 					}
 				}
@@ -445,6 +446,16 @@ public class PDFBuilder extends AbstractITextPdfView {
 		return students;
 	}
 	
+	private int countHolidays(Date firstDate, int numberOfDays) {
+		int result = 0;
+		for(int i = 0; i < numberOfDays; i++){
+			if(DateUtils.addDays(firstDate, i).getDay()==0){
+				result++;
+			}
+		}
+		return result;
+	}
+	
 	public class Watermark extends PdfPageEventHelper {
 		 
         protected Phrase watermark = new Phrase("SPECIMEN", new Font(FontFamily.HELVETICA, 70, Font.NORMAL, BaseColor.DARK_GRAY));
@@ -458,5 +469,7 @@ public class PDFBuilder extends AbstractITextPdfView {
             ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, watermark, 625, 425, 40);
         }
     }
+	
+	
 
 }
