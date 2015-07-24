@@ -12,4 +12,6 @@ public interface UserRepository {
 	List<ClassMaster> getAllClassesInSchool(int schoolId);
 
 	List<User> listStudents(int classId);
+	
+	List<User> listAllParents();
 }
