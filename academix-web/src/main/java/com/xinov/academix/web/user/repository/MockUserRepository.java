@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.xinov.academix.core.api.domain.ClassMaster;
-import com.xinov.academix.core.api.domain.ParentInfo;
 import com.xinov.academix.core.api.domain.Role;
 import com.xinov.academix.core.api.domain.SchoolInfo;
 import com.xinov.academix.core.api.domain.StudentInfo;

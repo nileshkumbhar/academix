@@ -31,7 +31,7 @@ public class LeaveApplicationController {
 		if(user.getRoles().contains(new Role(3, "PARENT"))){
 			model.addAttribute("leaveApplications", leaveApplicationService.listByParent(user));
 		}
-		
+
 		return model;
 	}
 }
