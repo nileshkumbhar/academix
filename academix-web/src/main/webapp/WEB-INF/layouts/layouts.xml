@@ -34,4 +34,8 @@
 		<put-attribute name="body" value="/WEB-INF/view/attendanceReports.jsp" />
 	</definition>
 	
+	<definition name="leaveApplications" extends="AdminTemplate">
+		<put-attribute name="title" value="AcademiX-Leave Applications" />
+		<put-attribute name="body" value="/WEB-INF/view/leaveApplications.jsp" />
+	</definition>
 </tiles-definitions>

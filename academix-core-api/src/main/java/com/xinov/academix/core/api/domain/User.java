@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -1952774027499637084L;
@@ -18,7 +20,10 @@ public class User implements Serializable {
 	private Date birthDate;
 	private String sex;
 	
+	@JsonBackReference
 	private Set<User> parents;
+	
+	@JsonBackReference
 	private Set<User> children;
 	
 	private Set<Document> documents;
