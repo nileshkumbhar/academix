@@ -12,6 +12,12 @@
 </div>
 <div class="row">
 	<div class="col-xs-12">
+		<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#newLeaveAppModal">Create Leave Application</button>
+	</div>
+	<div class="col-lg-12"><BR/></div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
 		<div class="table-responsive">
 			<table id="leaveApplicationsTbl" class="table table-striped">
 				<thead>
@@ -67,8 +73,29 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Leave Application</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="leaveModalBody">
         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="newLeaveAppModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Leave Application</h4>
+      </div>
+      <div class="modal-body">
+        <textarea rows="10" cols="20" id="editor"></textarea>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -79,15 +106,18 @@
 </div>
 <!-- jQuery -->
 <script type="text/javascript" src="resources/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery.hotkeys.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap-wysiwyg.js"></script>
 <script type="text/javascript"
 	src="resources/js/jquery-ui-1.10.4.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#leaveApplicationsTbl').dataTable();
+		$('#editor').wysiwyg();
 	});
 	
 	function showLeaveDetails(applicationContent){
-		$('.modal-body').html(applicationContent);
+		$('#leaveModalBody').html(applicationContent);
 	};
 </script>
