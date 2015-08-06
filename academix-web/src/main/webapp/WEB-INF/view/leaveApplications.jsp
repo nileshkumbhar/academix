@@ -62,7 +62,6 @@
 		</div>
 	</div>
 </div>
-
 <!-- Modal -->
 <div id="leaveModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
@@ -95,9 +94,60 @@
         <h4 class="modal-title">Leave Application</h4>
       </div>
       <div class="modal-body">
-        <textarea rows="10" cols="20" id="editor"></textarea>
+      	<div class="row">
+      		<div class="form-inline col-lg-12">
+      			<div class="form-group">
+	      			<b>Leave application for:</b>
+	      		</div>
+				<div class="form-group">
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle" type="button"
+							id="studentDropdown" data-toggle="dropdown" aria-expanded="true">
+							Student Name <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu"
+							aria-labelledby="studentDropdown">
+							<c:forEach items="${children}" var="child">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="#" onclick="changeStudent('${child.userId}', '${child.name}')">${child.name}</a></li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="form-group">
+	      			<b>&nbsp;&nbsp;&nbsp;&nbsp;Reason:</b>
+	      		</div>
+				<div class="form-group">
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle" type="button"
+							id="reasonDropdown" data-toggle="dropdown" aria-expanded="true">
+							Reason <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu"
+							aria-labelledby="reasonDropdown">
+							<c:forEach items="${reasons}" var="reason">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="#" onclick="changeReason('${reason}')">${reason}</a></li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-12"><br></div>
+			<div class="col-lg-12"><br></div>
+			<div class="col-lg-12">
+				<b>Type your application here:</b>
+			</div>
+			<div class="col-lg-12">
+				<div id="leaveAppBody"></div>
+			</div>
+		</div>
+        
       </div>
       <div class="modal-footer">
+      	<button type="button" class="btn btn-primary">Save as a Draft</button>
+      	<button type="button" class="btn btn-success">Submit for Approval</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -110,14 +160,31 @@
 <script type="text/javascript" src="resources/js/bootstrap-wysiwyg.js"></script>
 <script type="text/javascript"
 	src="resources/js/jquery-ui-1.10.4.min.js"></script>
+<script type="text/javascript" src="resources/js/editor.js"></script>
 
 <script type="text/javascript">
+	var studentId = '';
+	var reason = '';
 	$(document).ready(function() {
 		$('#leaveApplicationsTbl').dataTable();
-		$('#editor').wysiwyg();
+		$("#leaveAppBody").Editor({
+			'source':false,
+			'print':false,
+			'togglescreen':false
+		});
 	});
 	
 	function showLeaveDetails(applicationContent){
 		$('#leaveModalBody').html(applicationContent);
 	};
+	
+	function changeStudent(studentIdVar, studentName){
+		studentId = studentIdVar;
+		$("#studentDropdown").html(studentName);
+	}
+	
+	function changeReason(reasonVar){
+		reason = reasonVar;
+		$("#reasonDropdown").html(reasonVar);
+	}
 </script>

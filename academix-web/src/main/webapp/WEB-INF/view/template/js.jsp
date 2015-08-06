@@ -24,5 +24,11 @@
 
 <script type="text/javascript" src="resources/js/bootstrap-datepicker.min.js"></script>
 
+<script type="text/javascript" src="resources/js/editor.js"></script>
+
+<script type="text/javascript" src="resources/js/jquery.hotkeys.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap-wysiwyg.js"></script>
+
+
 
 

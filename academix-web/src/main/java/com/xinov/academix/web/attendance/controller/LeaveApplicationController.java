@@ -1,5 +1,7 @@
 package com.xinov.academix.web.attendance.controller;
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpSession; 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,9 @@ public class LeaveApplicationController {
 		}
 		
 		if(user.getRoles().contains(new Role(3, "PARENT"))){
+			model.addAttribute("children", user.getChildren());
 			model.addAttribute("leaveApplications", leaveApplicationService.listByParent(user));
+			model.addAttribute("reasons", Arrays.asList("Sick Leave", "Out of station", "Going for external exam", "Going for sports competition", "Other"));
 		}
 
 		return model;
